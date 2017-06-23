@@ -11,10 +11,10 @@ export default {
   "theme": "./theme.config.js",
   // 接口代理示例
   "proxy": {
-    "/api/v2": {
+    "/apinew": {
     "target": "http://jsonplaceholder.typicode.com/",
     "changeOrigin": true,
-    "pathRewrite": { "^/api" : "" }
+    "pathRewrite": { "^/apinew" : "" }
   },
     // "/api/v2": {
     //   "target": "http://192.168.0.110",

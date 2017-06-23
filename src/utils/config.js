@@ -1,5 +1,6 @@
 const APIV1 = '/api/v1'
 const APIV2 = '/api/v2'
+const APINEW = '/apinew'
 
 module.exports = {
   name: 'AntD Admin',
@@ -22,5 +23,6 @@ module.exports = {
     dashboard: `${APIV1}/dashboard`,
     v1test: `${APIV1}/test`,
     v2test: `${APIV2}/test`,
+    newUser: `${APINEW}/users`,
   },
 }

@@ -89,6 +89,10 @@ export default function request (options) {
   return fetch(options).then((response) => {
     const { statusText, status } = response
     let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data
+    if (data instanceof Array){
+      data = {data};
+    }
+    console.log(data)
     return {
       success: true,
       message: statusText,
