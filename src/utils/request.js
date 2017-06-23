@@ -92,7 +92,7 @@ export default function request (options) {
     if (data instanceof Array){
       data = {data};
     }
-    console.log(data)
+    // console.log(data)
     return {
       success: true,
       message: statusText,
