@@ -15,7 +15,9 @@ export default {
           "dva-hmr",
           "transform-runtime",
   		    ["import", { "libraryName": "antd", "style": true }]
-        ]
+        ],
+        "devtool":'cheap-module-source-map',
+        "port":4000
       },
       "production": {
         "extraBabelPlugins": [
