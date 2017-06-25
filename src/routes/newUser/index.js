@@ -6,38 +6,26 @@ import React from 'react'
 import { connect } from 'dva'
 import { Tabs } from 'antd'
 import { routerRedux } from 'dva/router'
-import testtable from './newUser'
+import header from './newUser'
 
 
 
+const Index = ({newUser,dispatch, location, loading})=>{
+  const {pagination} = newUser;
 
-const Index = ({ newUser, dispatch, loading, location }) => {
-  const { list, pagination } = newUser
-  const { query = {}, pathname } = location
+  function tryClick(id) {
 
-  const listProps = {
-    pagination,
-    dataSource: list,
-    loading: loading.effects['newUser/query'],
-    onChange (page) {
-      dispatch(routerRedux.push({
-        pathname,
-        query: {
-          ...query,
-          page: page.current,
-          pageSize: page.pageSize,
-        },
-      }))
-    },
+    console.log(id)
   }
 
-
-
   return (<div className="content-inner">
-    <testtable {...listProps} />
+    <header></header>
+    <p>NewUser{pagination.pageSize}</p>
+    <div>
+      <a onClick={tryClick.bind(pagination.pageSize)}>tryme</a>
+    </div>
   </div>)
 }
 
 
-
-export default connect(({ newUser, loading }) => ({ newUser, loading }))(Index)
+export default connect(({newUser,loading})=>({newUser,loading}))(Index)

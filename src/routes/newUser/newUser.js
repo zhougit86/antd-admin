@@ -3,70 +3,71 @@ import { connect } from 'dva';
 import { Table } from 'antd'
 import styles from './newUser.less';
 
-// function newUser() {
+
+
+// const testtable = ({ ...tableProps }) => {
+//   const columns = [
+//     {
+//       title: 'Name',
+//       dataIndex: 'name',
+//       key: 'name',
+//       render: text => <a href="">{text}</a>,
+//     },
+//     {
+//       title: 'Email',
+//       dataIndex: 'email',
+//       key: 'email',
+//     },
+//     {
+//       title: 'Website',
+//       dataIndex: 'website',
+//       key: 'website',
+//     },
+//     {
+//       "title": 'Phone',
+//       "dataIndex": 'phone',
+//       "key": 'phone',
+//     },
+//     {
+//       title: 'Operation',
+//       key: 'operation',
+//       render: (text, {id}) => (
+//         <span className={styles.operation}>
+//           <a href="">Edit</a>
+//           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, id)}>
+//             <a href="">Delete</a>
+//           </Popconfirm>
+//         </span>
+//       ),
+//     },
+//   ];
+//
 //   return (
-//     <div className={styles.normal}>
-//       Route Component: NewUser/newUser
+//     <div>
+//       <Table
+//         {...tableProps}
+//         bordered
+//         scroll={{ x: 1200 }}
+//         columns={columns}
+//         simple
+//         className={styles.table}
+//         rowKey={record => record.id}
+//       />
 //     </div>
-//   );
+//   )
 // }
-//
-// function mapStateToProps() {
-//   return {};
-// }
-//
-// export default connect(mapStateToProps)(newUser);
 
-const testtable = ({ ...tableProps }) => {
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: text => <a href="">{text}</a>,
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: 'Website',
-      dataIndex: 'website',
-      key: 'website',
-    },
-    {
-      "title": 'Phone',
-      "dataIndex": 'phone',
-      "key": 'phone',
-    },
-    {
-      title: 'Operation',
-      key: 'operation',
-      render: (text, {id}) => (
-        <span className={styles.operation}>
-          <a href="">Edit</a>
-          <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, id)}>
-            <a href="">Delete</a>
-          </Popconfirm>
-        </span>
-      ),
-    },
-  ];
-
+const header = ({page}) =>{
   return (
     <div>
-      <Table
-        {...tableProps}
-        bordered
-        scroll={{ x: 1200 }}
-        columns={columns}
-        simple
-        className={styles.table}
-        rowKey={record => record.id}
-      />
+      <p>======={page.pageSize}</p>
     </div>
   )
+};
+
+function mapStateToProps(state) {
+  const {pagination} = state.newUser;
+  return {page:pagination,}
 }
 
-export default testtable
+export default connect(mapStateToProps)(header)

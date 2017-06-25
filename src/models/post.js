@@ -9,6 +9,7 @@ export default modelExtend(pageModel, {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(location => {
+        // console.log(location.query)
         if (location.pathname === '/post') {
           dispatch({ type: 'query', payload: {
             status: 2,

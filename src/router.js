@@ -136,7 +136,7 @@ const Routers = function ({ history, app }) {
           getComponent (nextState, cb) {
             require.ensure([], require => {
               registerModel(app, require('./models/newUser'))
-              cb(null, require('./routes/newUser/index'))
+              cb(null, require('./routes/newUser/'))
             }, 'newUser')
           },
         },
