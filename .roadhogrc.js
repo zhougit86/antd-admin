@@ -33,7 +33,10 @@ export default {
     "include": [
       "dva/router",
       "dva/saga",
-      "dva/fetch"
+      "dva/fetch",
+      "dva",
+      "babel-polyfill",
+      "dva-loading"
     ]
   }
 }
