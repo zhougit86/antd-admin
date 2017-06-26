@@ -12,6 +12,7 @@ import header from './newUser'
 
 const Index = ({newUser,dispatch, location, loading})=>{
   const {pagination} = newUser;
+  const page = 1;
 
   function tryClick(id) {
 
@@ -19,10 +20,10 @@ const Index = ({newUser,dispatch, location, loading})=>{
   }
 
   return (<div className="content-inner">
-    <header></header>
+    <header />
     <p>NewUser{pagination.pageSize}</p>
     <div>
-      <a onClick={tryClick.bind(pagination.pageSize)}>tryme</a>
+      <a onClick={tryClick.bind(null,pagination.pageSize)}>tryme</a>
     </div>
   </div>)
 }

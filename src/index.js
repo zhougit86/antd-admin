@@ -11,7 +11,8 @@ const app = dva({
     effects: true,
   }),
   history: browserHistory,
-  onError (error) {
+  onError (error,dispatch) {
+    console.log(error.message);
     message.error(error.message)
   },
 })

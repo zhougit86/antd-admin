@@ -57,17 +57,13 @@ import styles from './newUser.less';
 //   )
 // }
 
-const header = ({page}) =>{
+const header = () =>{
+
   return (
     <div>
-      <p>======={page.pageSize}</p>
+      <p>=======</p>
     </div>
   )
 };
 
-function mapStateToProps(state) {
-  const {pagination} = state.newUser;
-  return {page:pagination,}
-}
-
-export default connect(mapStateToProps)(header)
+export default header

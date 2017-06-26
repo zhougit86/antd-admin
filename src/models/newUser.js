@@ -26,7 +26,8 @@ export default modelExtend(pageModel, {
   },
 
   effects: {
-    *query ({payload,}, {call, put}) {
+    *query ({payload,}, {call, put, select}) {
+      // throw new Error('haha')
       const data = yield call(query, payload)
       // console.log(data);
       if (data.success) {
@@ -41,6 +42,8 @@ export default modelExtend(pageModel, {
             },
           },
         })
+        const list = yield select(state => state.newUser);
+        console.log(list)
       } else {
         throw data
       }

@@ -39,15 +39,18 @@
     "path-to-regexp": "^1.7.0",
     "rc-tween-one": "^1.0.0",
     "redbox-react": "^1.2.10",
-    "roadhog": "0.6.0-beta.6"
+    "roadhog": "^0.6.0",
+    "rimraf": "^2.5.4"
   },
   "pre-commit": [
     "lint"
   ],
   "scripts": {
-    "start": "BROWSER=none HOST=0.0.0.0 roadhog server",
-    "dev": "SET BROWSER=none&&SET HOST=0.0.0.0&&roadhog server",
+    "dev_linux": "SET BROWSER=none&&SET HOST=0.0.0.0&&roadhog server",
+    "start": "set BROWSER=none&&set HOST=0.0.0.0&&roadhog server",
     "lint": "eslint --fix --ext .js src",
-    "build": "roadhog build"
+    "build": "roadhog build",
+    "build:dll": "npm run clean && roadhog buildDll",
+    "clean":"rimraf ./node_modules/roadhog-dlls/*"
   }
 }
