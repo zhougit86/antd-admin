@@ -12,7 +12,7 @@ const registerModel = (app, model) => {
 const Routers = function ({ history, app }) {
   const routes = [
     {
-      path: 'app',
+      path: '/',
       component: App,
       getIndexRoute (nextState, cb) {
         require.ensure([], require => {
