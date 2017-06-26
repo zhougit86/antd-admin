@@ -57,11 +57,12 @@ import styles from './newUser.less';
 //   )
 // }
 
-const header = () =>{
+const header = ({data}) =>{
 
   return (
     <div>
       <p>=======</p>
+      <span>{data}</span>
     </div>
   )
 };

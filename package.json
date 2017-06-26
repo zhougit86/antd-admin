@@ -46,7 +46,7 @@
     "lint"
   ],
   "scripts": {
-    "dev_linux": "SET BROWSER=none&&SET HOST=0.0.0.0&&roadhog server",
+    "dev_linux": "BROWSER=none HOST=0.0.0.0 roadhog server",
     "start": "set BROWSER=none&&set HOST=0.0.0.0&&roadhog server",
     "lint": "eslint --fix --ext .js src",
     "build": "roadhog build",
