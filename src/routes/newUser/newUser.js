@@ -1,19 +1,32 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table,Popconfirm } from 'antd'
+import { Pagination,Table,Popconfirm } from 'antd';
 import styles from './newUser.less';
+import {config} from '../../utils';
+
+const {pageSize} = config;
 
 
-const List = ({ ...tableProps }) => {
-
-  console.log(tableProps)
+const List = ({ ...tableProps,total,current,PAGE_SIZE=pageSize,dispatch }) => {
 
   function deleteHandler(id) {
-
     console.log(id)
   }
 
+  function pageChangeHandler(page) {
+    dispatch({
+      type: 'newUser/jump',
+      payload: {page},
+    });
+    console.log(`change to ${page}`)
+  }
+
   const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
     {
       title: 'Name',
       dataIndex: 'name',
@@ -49,7 +62,7 @@ const List = ({ ...tableProps }) => {
         </span>
       ),
     },
-  ]
+  ];
 
   return (
     <div>
@@ -62,8 +75,15 @@ const List = ({ ...tableProps }) => {
         className={styles.table}
         rowKey={record => record.id}
       />
+      <Pagination
+          className="ant-table-pagination"
+          total={total}
+          current={current}
+          pageSize={PAGE_SIZE}
+          onChange={pageChangeHandler}
+      />
     </div>
   )
 }
 
-export default List
+export default connect()(List)

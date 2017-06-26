@@ -3,6 +3,7 @@ const APIV2 = '/api/v2'
 const APINEW = '/apinew'
 
 module.exports = {
+  pageSize:3,
   name: 'AntD Admin',
   prefix: 'antdAdmin',
   footerText: 'Ant Design Admin  © 2017 zuiidea',

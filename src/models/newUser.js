@@ -1,19 +1,34 @@
 import modelExtend from 'dva-model-extend'
 import {query} from '../services/newUser'
 import {pageModel} from './common'
+import {config} from '../utils'
+
+const {pageSize} = config
 
 export default modelExtend(pageModel, {
 
   namespace: 'newUser',
 
+  reducers:{
+    jump(state, {payload: {page:current}}){
+      return {
+        ...state,
+        listFrontPage:state.list.slice((current-1)*pageSize,current*pageSize),
+        paginationFront: {
+          ...state.paginationFront,
+          current,
+        },
+      }
+
+    }
+
+  },
+
   subscriptions: {
     setup ({dispatch, history}) {
       history.listen(location => {
         if (location.pathname === '/newUser') {
-          // console.log({
-          //   status: 2,
-          //   ...location.query,
-          // })
+
           dispatch({
             type: 'query', payload: {
               // status: 2,
@@ -29,7 +44,6 @@ export default modelExtend(pageModel, {
     *query ({payload,}, {call, put, select}) {
       // throw new Error('haha')
       const data = yield call(query, payload)
-      // console.log(data);
       if (data.success) {
         yield put({
           type: 'querySuccess',
@@ -38,11 +52,15 @@ export default modelExtend(pageModel, {
             pagination: {
               current: Number(payload.page) || 1,
               pageSize: Number(payload.pageSize) || 10,
-              total: data.total,
+              total: Number(data.total) || 10,
+            },
+            paginationFront: {
+              current: 1,
+              total: Number(data.data.length) ,
+              pageSize: pageSize,
             },
           },
         })
-        const list = yield select(state => state.newUser);
       } else {
         throw data
       }
