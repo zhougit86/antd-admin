@@ -43,7 +43,6 @@ export default modelExtend(pageModel, {
           },
         })
         const list = yield select(state => state.newUser);
-        console.log(list)
       } else {
         throw data
       }
