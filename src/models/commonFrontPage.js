@@ -31,7 +31,10 @@ const pageFrontModel = modelExtend(model, {
       showTotal: total => `Total ${total} Items`,
       current: 1,
       total: 0,
-    }
+    },
+    sortedInfo: null,
+    filteredInfo: null,
+    selectedRowKeys: [],
   },
 
   reducers: {
@@ -45,6 +48,7 @@ const pageFrontModel = modelExtend(model, {
           ...state.paginationFront,
           ...paginationFront,
         },
+        selectedRowKeys: [],
       }
     },
     jump(state, {payload: {page:current}}){

@@ -1,13 +1,16 @@
 import React from 'react';
-import { connect } from 'dva';
-import { Pagination,Table,Popconfirm } from 'antd';
+import {connect} from 'dva';
+import {Pagination, Table, Popconfirm} from 'antd';
 import styles from './newUser.less';
 import {config} from '../../utils';
 
 const {pageSize} = config;
 
 
-const List = ({ ...tableProps,total,current,PAGE_SIZE=pageSize,dispatch }) => {
+const List = ({...tableProps, total, current, PAGE_SIZE = pageSize, dispatch, sortedInfo}) => {
+
+  sortedInfo = sortedInfo || {};
+  // filteredInfo = filteredInfo || {};
 
   function deleteHandler(id) {
     console.log(id)
@@ -20,11 +23,38 @@ const List = ({ ...tableProps,total,current,PAGE_SIZE=pageSize,dispatch }) => {
     });
   }
 
+  function handleChange(pagination, filters, sorter) {
+    // console.log('Various parameters', pagination, filters, sorter);
+    dispatch({
+        type: 'newUser/change',
+        payload: {filters, sorter}
+      }
+    )
+  }
+
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      dispatch({
+        type: 'newUser/updateState',
+        payload: {selectedRowKeys}
+      }
+    )
+    },
+    getCheckboxProps: record => ({
+      disabled: record.name === 'Disabled User',    // Column configuration not to be checked
+    }),
+  };
+
+
   const columns = [
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      sorter: (a, b) => a.id - b.id,
+      sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
     },
     {
       title: 'Name',
@@ -51,7 +81,7 @@ const List = ({ ...tableProps,total,current,PAGE_SIZE=pageSize,dispatch }) => {
       title: 'Operation',
       key: 'operation',
       width: 150,
-      fixed:'right',
+      fixed: 'right',
       render: (text, {id}) => (
         <span className={styles.operation}>
           <a href="">Edit</a>
@@ -64,24 +94,28 @@ const List = ({ ...tableProps,total,current,PAGE_SIZE=pageSize,dispatch }) => {
   ];
 
   return (
+
     <div>
       <Table
         {...tableProps}
         bordered
-        scroll={{ x: 1200 }}
+        scroll={{x: 1200}}
         columns={columns}
         simple
         className={styles.table}
         rowKey={record => record.id}
+        onChange={handleChange}
+        rowSelection={rowSelection}
       />
       <Pagination
-          className="ant-table-pagination"
-          total={total}
-          current={current}
-          pageSize={PAGE_SIZE}
-          onChange={pageChangeHandler}
+        className="ant-table-pagination"
+        total={total}
+        current={current}
+        pageSize={PAGE_SIZE}
+        onChange={pageChangeHandler}
       />
     </div>
+
   )
 }
 

@@ -10,9 +10,8 @@ import PropTypes from 'prop-types'
 import List from './newUser'
 
 const Index = ({newUser,dispatch, location, loading})=>{
-  const {listFrontPage,paginationFront} = newUser;
+  const {listFrontPage,paginationFront,sortedInfo} = newUser;
   const { query = {}, pathname } = location;
-  const {current,total} = paginationFront;
 
   function tryClick(id) {
 
@@ -24,8 +23,8 @@ const Index = ({newUser,dispatch, location, loading})=>{
     pagination:false,
     dataSource: listFrontPage,
     loading: loading.effects['newUser/query'],
-    current,
-    total,
+  ...paginationFront,
+    sortedInfo,
     // onChange (page) {
     //   dispatch(routerRedux.push({
     //     pathname,

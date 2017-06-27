@@ -7,8 +7,13 @@ export default modelExtend(pageFrontModel, {
   namespace: 'newUser',
 
   reducers:{
-
-
+    change(state, { payload }){
+      return {
+        ...state,
+        sortedInfo: payload.sorter,
+        filteredInfo: payload.filters,
+      }
+    }
   },
 
   subscriptions: {
