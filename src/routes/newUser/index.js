@@ -3,28 +3,30 @@
  */
 
 import React from 'react'
-import { connect } from 'dva'
-import { Tabs } from 'antd'
-import { routerRedux } from 'dva/router'
+import {connect} from 'dva'
+import {Tabs} from 'antd'
+import {routerRedux} from 'dva/router'
 import PropTypes from 'prop-types'
 import List from './newUser'
 
-const Index = ({newUser,dispatch, location, loading})=>{
-  const {listFrontPage,paginationFront,sortedInfo} = newUser;
-  const { query = {}, pathname } = location;
+const Index = ({newUser, dispatch, location, loading}) => {
+  const {list, pagination, sortedInfo, selectedRowKeys} = newUser;
+  const {query = {}, pathname} = location;
 
-  function tryClick(id) {
-
-    console.log(id)
+  function tryClick() {
+    dispatch({
+      type: 'newUser/query', payload: {}
+    })
   }
 
   const listProps = {
-    scroll:true,
-    pagination:false,
-    dataSource: listFrontPage,
+    scroll: true,
+    pagination,
+    dataSource: list,
     loading: loading.effects['newUser/query'],
-  ...paginationFront,
+
     sortedInfo,
+    selectedRowKeys,
     // onChange (page) {
     //   dispatch(routerRedux.push({
     //     pathname,
@@ -39,10 +41,10 @@ const Index = ({newUser,dispatch, location, loading})=>{
 
   return (<div className="content-inner">
 
-    <p>NewUser</p>
-    <div>
-      <a onClick={tryClick.bind(null,paginationFront.pageSize)}>tryme</a>
-    </div>
+    {/*<p>NewUser</p>*/}
+    {/*<div>*/}
+      {/*<a onClick={tryClick.bind(null)}>tryme</a>*/}
+    {/*</div>*/}
     <List {...listProps}/>
   </div>)
 };
@@ -54,4 +56,4 @@ Index.propTypes = {
   dispatch: PropTypes.func,
 }
 
-export default connect(({newUser,loading})=>({newUser,loading}))(Index)
+export default connect(({newUser, loading}) => ({newUser, loading}))(Index)

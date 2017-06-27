@@ -1,49 +1,51 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Pagination, Table, Popconfirm} from 'antd';
+import {Pagination, Table, Popconfirm, Button} from 'antd';
 import styles from './newUser.less';
 import {config} from '../../utils';
 
 const {pageSize} = config;
 
 
-const List = ({...tableProps, total, current, PAGE_SIZE = pageSize, dispatch, sortedInfo}) => {
+const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
 
   sortedInfo = sortedInfo || {};
+  const hasSelected = selectedRowKeys.length > 0;
   // filteredInfo = filteredInfo || {};
 
   function deleteHandler(id) {
     console.log(id)
   }
 
-  function pageChangeHandler(page) {
-    dispatch({
-      type: 'newUser/jump',
-      payload: {page},
-    });
-  }
-
   function handleChange(pagination, filters, sorter) {
     // console.log('Various parameters', pagination, filters, sorter);
     dispatch({
         type: 'newUser/change',
-        payload: {filters, sorter}
+        payload: {pagination,filters, sorter}
       }
     )
   }
 
+  function refresh() {
+    dispatch({
+      type: 'newUser/query', payload: {}
+    })
+    selectedRowKeys=[];
+  }
+
 
   const rowSelection = {
+    selectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
       // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       dispatch({
-        type: 'newUser/updateState',
-        payload: {selectedRowKeys}
-      }
-    )
+          type: 'newUser/updateState',
+          payload: {selectedRowKeys}
+        }
+      )
     },
     getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User',    // Column configuration not to be checked
+      disabled: record.name === 'Leanne Graham',    // Column configuration not to be checked
     }),
   };
 
@@ -96,24 +98,34 @@ const List = ({...tableProps, total, current, PAGE_SIZE = pageSize, dispatch, so
   return (
 
     <div>
-      <Table
-        {...tableProps}
-        bordered
-        scroll={{x: 1200}}
-        columns={columns}
-        simple
-        className={styles.table}
-        rowKey={record => record.id}
-        onChange={handleChange}
-        rowSelection={rowSelection}
-      />
-      <Pagination
-        className="ant-table-pagination"
-        total={total}
-        current={current}
-        pageSize={PAGE_SIZE}
-        onChange={pageChangeHandler}
-      />
+      <div style={{marginBottom: 16}}>
+        <Button
+          type="primary"
+          onClick={refresh}
+          disabled={!hasSelected}
+          loading={tableProps.loading}
+        >
+          Reload
+        </Button>
+        <Table
+          {...tableProps}
+          bordered
+          scroll={{x: 1200}}
+          columns={columns}
+          simple
+          className={styles.table}
+          rowKey={record => record.id}
+          onChange={handleChange}
+          rowSelection={rowSelection}
+        />
+        {/*<Pagination*/}
+          {/*className="ant-table-pagination"*/}
+          {/*total={total}*/}
+          {/*current={current}*/}
+          {/*pageSize={PAGE_SIZE}*/}
+          {/*onChange={pageChangeHandler}*/}
+        {/*/>*/}
+      </div>
     </div>
 
   )

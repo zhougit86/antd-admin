@@ -2,7 +2,6 @@
  * Created by root on 17-6-27.
  */
 
-
 import modelExtend from 'dva-model-extend'
 import {config} from '../utils'
 
@@ -23,11 +22,11 @@ const pageFrontModel = modelExtend(model, {
 
   state: {
     list:[],
-    listFrontPage:[],
-    paginationFront:{
+    pagination:{
       pageSize: pageSize,
       showSizeChanger: true,
       showQuickJumper: true,
+      pageSizeOptions: ["3","4","5","6"],
       showTotal: total => `Total ${total} Items`,
       current: 1,
       total: 0,
@@ -39,28 +38,25 @@ const pageFrontModel = modelExtend(model, {
 
   reducers: {
     querySuccess (state, { payload }) {
-      const { list,paginationFront } = payload
+      const { list,pagination } = payload
       return {
         ...state,
         list,
-        listFrontPage:list.slice(0,pageSize),
-        paginationFront: {
-          ...state.paginationFront,
-          ...paginationFront,
+
+        pagination: {
+          ...state.pagination,
+          ...pagination,
         },
         selectedRowKeys: [],
       }
     },
-    jump(state, {payload: {page:current}}){
+    change(state, { payload }){
       return {
         ...state,
-        listFrontPage:state.list.slice((current-1)*pageSize,current*pageSize),
-        paginationFront: {
-          ...state.paginationFront,
-          current,
-        },
+        pagination: payload.pagination,
+        sortedInfo: payload.sorter,
+        filteredInfo: payload.filters,
       }
-
     }
   },
 
