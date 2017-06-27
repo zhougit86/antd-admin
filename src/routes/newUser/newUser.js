@@ -1,10 +1,7 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Pagination, Table, Popconfirm, Button} from 'antd';
+import {Table, Popconfirm, Button} from 'antd';
 import styles from './newUser.less';
-import {config} from '../../utils';
-
-const {pageSize} = config;
 
 
 const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
@@ -21,7 +18,7 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
     // console.log('Various parameters', pagination, filters, sorter);
     dispatch({
         type: 'newUser/change',
-        payload: {pagination,filters, sorter}
+        payload: {pagination, filters, sorter}
       }
     )
   }
@@ -30,9 +27,8 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
     dispatch({
       type: 'newUser/query', payload: {}
     })
-    selectedRowKeys=[];
+    selectedRowKeys = [];
   }
-
 
   const rowSelection = {
     selectedRowKeys,
@@ -105,27 +101,24 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
           disabled={!hasSelected}
           loading={tableProps.loading}
         >
-          Reload
+          Refresh
         </Button>
-        <Table
-          {...tableProps}
-          bordered
-          scroll={{x: 1200}}
-          columns={columns}
-          simple
-          className={styles.table}
-          rowKey={record => record.id}
-          onChange={handleChange}
-          rowSelection={rowSelection}
-        />
-        {/*<Pagination*/}
-          {/*className="ant-table-pagination"*/}
-          {/*total={total}*/}
-          {/*current={current}*/}
-          {/*pageSize={PAGE_SIZE}*/}
-          {/*onChange={pageChangeHandler}*/}
-        {/*/>*/}
+        <span style={{marginLeft: 8}}>
+            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+          </span>
       </div>
+      <Table
+        {...tableProps}
+        bordered
+        scroll={{x: 1200}}
+        columns={columns}
+        simple
+        className={styles.table}
+        rowKey={record => record.id}
+        onChange={handleChange}
+        rowSelection={rowSelection}
+      />
+
     </div>
 
   )

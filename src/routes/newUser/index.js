@@ -13,12 +13,6 @@ const Index = ({newUser, dispatch, location, loading}) => {
   const {list, pagination, sortedInfo, selectedRowKeys} = newUser;
   const {query = {}, pathname} = location;
 
-  function tryClick() {
-    dispatch({
-      type: 'newUser/query', payload: {}
-    })
-  }
-
   const listProps = {
     scroll: true,
     pagination,

@@ -30,12 +30,7 @@ export default modelExtend(pageFrontModel, {
           type: 'querySuccess',
           payload: {
             list: data.data,
-            // pagination: {
-            //   current: Number(payload.page) || 1,
-            //   pageSize: Number(payload.pageSize) || 10,
-            //   total: Number(data.total) || 10,
-            // },
-            paginationFront: {
+            pagination: {
               current: 1,
               total: Number(data.data.length) ,
             },
