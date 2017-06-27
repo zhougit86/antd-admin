@@ -18,7 +18,6 @@ const List = ({ ...tableProps,total,current,PAGE_SIZE=pageSize,dispatch }) => {
       type: 'newUser/jump',
       payload: {page},
     });
-    console.log(`change to ${page}`)
   }
 
   const columns = [

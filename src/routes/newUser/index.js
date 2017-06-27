@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import List from './newUser'
 
 const Index = ({newUser,dispatch, location, loading})=>{
-  const {pagination,listFrontPage,paginationFront} = newUser;
+  const {listFrontPage,paginationFront} = newUser;
   const { query = {}, pathname } = location;
   const {current,total} = paginationFront;
 
@@ -40,9 +40,9 @@ const Index = ({newUser,dispatch, location, loading})=>{
 
   return (<div className="content-inner">
 
-    <p>NewUser{pagination.pageSize}</p>
+    <p>NewUser</p>
     <div>
-      <a onClick={tryClick.bind(null,pagination.pageSize)}>tryme</a>
+      <a onClick={tryClick.bind(null,paginationFront.pageSize)}>tryme</a>
     </div>
     <List {...listProps}/>
   </div>)
