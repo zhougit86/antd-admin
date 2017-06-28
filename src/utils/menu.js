@@ -158,4 +158,14 @@ module.exports = [
     name: 'Test Navigation22',
     router: '/navigation/navigation2/navigation2',
   },
+  {
+    id: 623,
+    bpid: 62,
+    // mpid: 62,
+    name: 'basicTable',
+    router: 'basicTable',
+    icon: 'setting',
+  },
+
+
 ]
