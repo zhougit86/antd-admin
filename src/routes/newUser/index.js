@@ -11,8 +11,9 @@ import List from './newUser'
 import Filter from './Filter'
 
 const Index = ({newUser, dispatch, location, loading}) => {
-  const {listFiltered, pagination, sortedInfo, selectedRowKeys, filter} = newUser;
-  const {query = {}, pathname} = location;
+  const {listFiltered, pagination, sortedInfo, filter} = newUser;
+  let {selectedRowKeys} =newUser;
+  const hasSelected = selectedRowKeys.length > 0;
 
   const listProps = {
     scroll: true,
@@ -21,33 +22,30 @@ const Index = ({newUser, dispatch, location, loading}) => {
     loading: loading.effects['newUser/query'],
     sortedInfo,
     selectedRowKeys,
-    // onChange (page) {
-    //   dispatch(routerRedux.push({
-    //     pathname,
-    //     query: {
-    //       ...query,
-    //       page: page.current,
-    //       pageSize: page.pageSize,
-    //     },
-    //   }))
-    // },
+  }
+
+  const refresh =() =>{
+    dispatch({
+      type: 'newUser/query', payload: {}
+    })
+    selectedRowKeys = [];
   }
 
   const filterProps = {
+    loading: loading.effects['newUser/query'],
     filter: filter,
+    hasSelected,
+    selectedRowKeys,
     onFilterChange (value) {
       dispatch(
         {type: 'newUser/filter', payload: {filter:value.text}}
       )
     },
+    refresh
   }
 
   return (<div className="content-inner">
     <Filter {...filterProps} />
-    {/*<p>NewUser</p>*/}
-    {/*<div>*/}
-    {/*<a onClick={tryClick.bind(null)}>tryme</a>*/}
-    {/*</div>*/}
     <List {...listProps}/>
   </div>)
 };

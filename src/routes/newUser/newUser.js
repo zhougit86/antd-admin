@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Table, Popconfirm, Button} from 'antd';
+import {Table, Popconfirm} from 'antd';
 import styles from './newUser.less';
 
 
@@ -21,13 +21,6 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
         payload: {pagination, filters, sorter}
       }
     )
-  }
-
-  function refresh() {
-    dispatch({
-      type: 'newUser/query', payload: {}
-    })
-    selectedRowKeys = [];
   }
 
   const rowSelection = {
@@ -94,18 +87,6 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
   return (
 
     <div>
-      <div style={{marginBottom: 16}}>
-        <Button
-          type="primary"
-          onClick={refresh}
-          loading={tableProps.loading}
-        >
-          Refresh
-        </Button>
-        <span style={{marginLeft: 8}}>
-            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
-          </span>
-      </div>
       <Table
         {...tableProps}
         bordered
