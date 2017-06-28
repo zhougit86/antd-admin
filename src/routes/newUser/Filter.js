@@ -20,7 +20,7 @@ const ColProps = {
 
 const Filter = ({
   onFilterChange,
-  name,
+  filter,
   form: {
     getFieldDecorator,
     getFieldsValue,
@@ -30,14 +30,17 @@ const Filter = ({
     let fields = getFieldsValue()
     onFilterChange(fields)
   };
+
+  const { text } = filter
+
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('name', { initialValue: name })(<Search placeholder="Search Name" size="large" onSearch={handleSubmit} />)}
+        {getFieldDecorator('text', { initialValue: text })(<Search placeholder="Search for any field" size="large" onSearch={handleSubmit} />)}
       </Col>
     </Row>
   )
 }
 
 
-export default Filter
+export default Form.create()(Filter)

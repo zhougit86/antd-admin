@@ -21,6 +21,7 @@ const model = {
 const pageFrontModel = modelExtend(model, {
 
   state: {
+    listFiltered:[],
     list:[],
     pagination:{
       pageSize: pageSize,
@@ -34,6 +35,7 @@ const pageFrontModel = modelExtend(model, {
     sortedInfo: null,
     filteredInfo: null,
     selectedRowKeys: [],
+    filter:{},
   },
 
   reducers: {
@@ -42,7 +44,7 @@ const pageFrontModel = modelExtend(model, {
       return {
         ...state,
         list,
-
+        listFiltered:list,
         pagination: {
           ...state.pagination,
           ...pagination,
@@ -56,6 +58,18 @@ const pageFrontModel = modelExtend(model, {
         pagination: payload.pagination,
         sortedInfo: payload.sorter,
         filteredInfo: payload.filters,
+      }
+    },
+    filter(state, { payload }){
+      let listFiltered=payload.filter.length?state.list.filter((item)=>(item.name.indexOf(payload.filter)>-1)):state.list;
+      return{
+        ...state,
+        listFiltered,
+        pagination: {
+          ...state.pagination,
+          current:1,
+          total:listFiltered.length,
+        },
       }
     }
   },

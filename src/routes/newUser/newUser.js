@@ -98,7 +98,6 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
         <Button
           type="primary"
           onClick={refresh}
-          disabled={!hasSelected}
           loading={tableProps.loading}
         >
           Refresh

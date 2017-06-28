@@ -8,17 +8,17 @@ import {Tabs} from 'antd'
 import {routerRedux} from 'dva/router'
 import PropTypes from 'prop-types'
 import List from './newUser'
+import Filter from './Filter'
 
 const Index = ({newUser, dispatch, location, loading}) => {
-  const {list, pagination, sortedInfo, selectedRowKeys} = newUser;
+  const {listFiltered, pagination, sortedInfo, selectedRowKeys, filter} = newUser;
   const {query = {}, pathname} = location;
 
   const listProps = {
     scroll: true,
     pagination,
-    dataSource: list,
+    dataSource: listFiltered,
     loading: loading.effects['newUser/query'],
-
     sortedInfo,
     selectedRowKeys,
     // onChange (page) {
@@ -33,11 +33,20 @@ const Index = ({newUser, dispatch, location, loading}) => {
     // },
   }
 
-  return (<div className="content-inner">
+  const filterProps = {
+    filter: filter,
+    onFilterChange (value) {
+      dispatch(
+        {type: 'newUser/filter', payload: {filter:value.text}}
+      )
+    },
+  }
 
+  return (<div className="content-inner">
+    <Filter {...filterProps} />
     {/*<p>NewUser</p>*/}
     {/*<div>*/}
-      {/*<a onClick={tryClick.bind(null)}>tryme</a>*/}
+    {/*<a onClick={tryClick.bind(null)}>tryme</a>*/}
     {/*</div>*/}
     <List {...listProps}/>
   </div>)
