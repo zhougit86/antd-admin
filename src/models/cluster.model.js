@@ -1,6 +1,7 @@
 import {create, remove, update} from '../services/user'
 import * as usersService from '../services/users'
 import {parse} from 'qs'
+import lodash from 'lodash'
 
 const {query} = usersService
 
@@ -11,6 +12,7 @@ export default {
 
   state: {
     list: [],
+    listBack: [],
     currentItem: {},
     modalVisible: false,
     modalType: 'create',
@@ -110,6 +112,7 @@ export default {
       return {
         ...state,
         list,
+        listBack: lodash.cloneDeep(list),
         pagination: {
           ...state.pagination,
           ...pagination,
@@ -136,6 +139,29 @@ export default {
       localStorage.setItem('antdAdminUserIsMotion', !state.isMotion)
       return {...state, isMotion: !state.isMotion}
     },
+
+    search(state, {payload}){
+      let result = [];
+
+      if (payload) {
+        if (state.list && state.list.length > 0) {
+          result = state.list.filter((row) => {
+            for (let key in row) {
+              if (row[key] && row[key].toString().indexOf(payload) > -1) {
+                return true;
+              }
+            }
+          });
+        }
+      } else {
+        result = state.listBack;
+      }
+
+      return {
+        ...state,
+        list: result
+      }
+    }
 
   },
 

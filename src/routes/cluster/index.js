@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
 import {Row, Col, Button, Popconfirm} from 'antd'
-import List from './List'
 import BasicTable from '../../components/BasicTable'
-import Filter from './Filter'
 import Modal from './Modal'
 import {Link} from 'dva/router'
 import styles from './List.less'
@@ -77,16 +75,25 @@ const Cluster = ({cluster, dispatch, location}) => {
       ...location.query,
     },
     onFilterChange (value) {
-      dispatch(routerRedux.push({
-        pathname: location.pathname,
-        query: {
-          ...value,
-          page: 1,
-          pageSize,
-        },
-      }))
+
+      console.log(value)
+      console.log('search function')
+
+      dispatch({
+        type:'cluster/search',
+        payload:value.name
+      })
+      // dispatch(routerRedux.push({
+      //   pathname: location.pathname,
+      //   query: {
+      //     ...value,
+      //     page: 1,
+      //     pageSize,
+      //   },
+      // }))
     },
     onSearch (fieldsValue) {
+      console.log(value)
       fieldsValue.keyword.length ? dispatch(routerRedux.push({
         pathname: '/user',
         query: {
@@ -96,25 +103,14 @@ const Cluster = ({cluster, dispatch, location}) => {
       })) : dispatch(routerRedux.push({
         pathname: '/user',
       }))
-    },
-    onAdd () {
-      dispatch({
-        type: 'user/showModal',
-        payload: {
-          modalType: 'create',
-        },
-      })
-    },
-    switchIsMotion () {
-      dispatch({type: 'user/switchIsMotion'})
-    },
-  }
+    }
+  };
 
   let tableProps = {
     columns,
     dataSource: cluster.list,
     filterProps
-  }
+  };
 
   return (
     <div className="content-inner">
@@ -122,14 +118,14 @@ const Cluster = ({cluster, dispatch, location}) => {
     </div>
   )
 
-}
+};
 
 Cluster.propTypes = {
   cluster: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
-}
+};
 
 function mapStateToProps({cluster}) {
   return {
