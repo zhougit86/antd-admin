@@ -162,8 +162,8 @@ module.exports = [
     id: 623,
     bpid: 62,
     // mpid: 62,
-    name: 'basicTable',
-    router: 'basicTable',
+    name: 'cluster',
+    router: 'cluster',
     icon: 'setting',
   },
 

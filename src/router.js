@@ -141,12 +141,12 @@ const Routers = function ({history, app}) {
           },
         },
         {
-          path: 'basicTable',
+          path: 'cluster',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./models/basicTable'))
-              cb(null, require('./routes/basicTable/'))
-            }, 'basicTable')
+              registerModel(app, require('./models/cluster.model'))
+              cb(null, require('./routes/cluster/'))
+            }, 'cluster')
           },
         },
         {
