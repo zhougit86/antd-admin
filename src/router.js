@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Router } from 'dva/router'
+import {Router} from 'dva/router'
 import App from './routes/app'
 
 const registerModel = (app, model) => {
@@ -9,7 +9,7 @@ const registerModel = (app, model) => {
   }
 }
 
-const Routers = function ({ history, app }) {
+const Routers = function ({history, app}) {
   const routes = [
     {
       path: '/',
@@ -17,7 +17,7 @@ const Routers = function ({ history, app }) {
       getIndexRoute (nextState, cb) {
         require.ensure([], require => {
           registerModel(app, require('./models/dashboard'))
-          cb(null, { component: require('./routes/dashboard/') })
+          cb(null, {component: require('./routes/dashboard/')})
         }, 'dashboard')
       },
       childRoutes: [
@@ -141,6 +141,15 @@ const Routers = function ({ history, app }) {
           },
         },
         {
+          path: 'basicTable',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./models/basicTable'))
+              cb(null, require('./routes/basicTable/'))
+            }, 'basicTable')
+          },
+        },
+        {
           path: '*',
           getComponent (nextState, cb) {
             require.ensure([], require => {
@@ -152,7 +161,7 @@ const Routers = function ({ history, app }) {
     },
   ]
 
-  return <Router history={history} routes={routes} />
+  return <Router history={history} routes={routes}/>
 }
 
 Routers.propTypes = {
