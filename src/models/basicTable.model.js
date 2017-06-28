@@ -146,7 +146,7 @@ export default {
       if (payload) {
         if (state.list && state.list.length > 0) {
           result = state.list.filter((row) => {
-            return Object.values(row).filter(item => item && String(item).indexOf(payload) > -1).length > 0
+            return Object.values(row).filter(item => item && String(item).toLowerCase().indexOf(payload.toLowerCase()) > -1).length > 0
           });
         }
       } else {
