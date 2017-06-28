@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1674952e-bda3-42a4-90fc-939d4cbc3196" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/cluster/Filter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/cluster/List.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/BasicTable/Filter.js" afterPath="$PROJECT_DIR$/src/components/BasicTable/Filter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/BasicTable/index.js" afterPath="$PROJECT_DIR$/src/components/BasicTable/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/basicTable.model.js" afterPath="$PROJECT_DIR$/src/models/basicTable.model.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/cluster.model.js" afterPath="$PROJECT_DIR$/src/models/cluster.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/cluster/index.js" afterPath="$PROJECT_DIR$/src/routes/cluster/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -63,8 +58,20 @@
       <file leaf-file-name="cluster.model.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/models/cluster.model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="157" column="7" lean-forward="false" selection-start-line="157" selection-start-column="7" selection-end-line="157" selection-end-column="7" />
+            <state relative-caret-position="196">
+              <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="basicTable.model.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/models/basicTable.model.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="114" column="34" lean-forward="false" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="34" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
               </folding>
@@ -128,12 +135,13 @@
       <find>initialCreateTime</find>
       <find>onFilterChange</find>
       <find>lodash</find>
-      <find>deep</find>
       <find>dee</find>
       <find>de</find>
       <find>deepc</find>
       <find>deepcl</find>
       <find>cl</find>
+      <find>deep</find>
+      <find>basicTableModel</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -170,6 +178,7 @@
         <option value="$PROJECT_DIR$/src/components/BasicTable/index.js" />
         <option value="$PROJECT_DIR$/src/routes/cluster/index.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
+        <option value="$PROJECT_DIR$/src/models/basicTable.model.js" />
         <option value="$PROJECT_DIR$/src/models/cluster.model.js" />
       </list>
     </option>
@@ -226,6 +235,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="antd-admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="antd-admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -382,7 +409,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20260000" />
+    <option name="totallyTimeSpent" value="21164000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="2578" height="1408" extended-state="6" />
@@ -435,13 +462,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/svg/cute/sweat.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/svg/emoji/zombie.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -838,12 +858,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/cluster.model.js">
+    <entry file="file://$PROJECT_DIR$/src/models/basicTable.model.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="157" column="7" lean-forward="false" selection-start-line="157" selection-start-column="7" selection-end-line="157" selection-end-column="7" />
+        <state relative-caret-position="292">
+          <caret line="114" column="34" lean-forward="false" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="34" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/cluster.model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
