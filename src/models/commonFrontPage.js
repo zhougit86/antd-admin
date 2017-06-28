@@ -9,7 +9,7 @@ const {pageSize} = config
 
 const model = {
   reducers: {
-    updateState (state, { payload }) {
+    updateState (state, {payload}) {
       return {
         ...state,
         ...payload,
@@ -21,13 +21,13 @@ const model = {
 const pageFrontModel = modelExtend(model, {
 
   state: {
-    listFiltered:[],
-    list:[],
-    pagination:{
+    listFiltered: [],
+    list: [],
+    pagination: {
       pageSize: pageSize,
       showSizeChanger: true,
       showQuickJumper: true,
-      pageSizeOptions: ["3","4","5","6"],
+      pageSizeOptions: ["3", "4", "5", "6"],
       showTotal: total => `Total ${total} Items`,
       current: 1,
       total: 0,
@@ -35,16 +35,16 @@ const pageFrontModel = modelExtend(model, {
     sortedInfo: null,
     filteredInfo: null,
     selectedRowKeys: [],
-    filter:{},
+    filter: {},
   },
 
   reducers: {
-    querySuccess (state, { payload }) {
-      const { list,pagination } = payload
+    querySuccess (state, {payload}) {
+      const {list, pagination} = payload
       return {
         ...state,
         list,
-        listFiltered:list,
+        listFiltered: list,
         pagination: {
           ...state.pagination,
           ...pagination,
@@ -52,7 +52,7 @@ const pageFrontModel = modelExtend(model, {
         selectedRowKeys: [],
       }
     },
-    change(state, { payload }){
+    change(state, {payload}){
       return {
         ...state,
         pagination: payload.pagination,
@@ -60,21 +60,31 @@ const pageFrontModel = modelExtend(model, {
         filteredInfo: payload.filters,
       }
     },
-    filter(state, { payload }){
-      let listFiltered=payload.filter.length?state.list.filter((item)=>(item.name.indexOf(payload.filter)>-1)):state.list;
-      return{
+    filter(state, {payload}){
+      let listFiltered = payload.filter.length ? state.list.filter(filterForAnyField(payload.filter)) : state.list;
+      return {
         ...state,
         listFiltered,
         pagination: {
           ...state.pagination,
-          current:1,
-          total:listFiltered.length,
+          current: 1,
+          total: listFiltered.length,
         },
       }
     }
   },
 
 })
+
+const filterForAnyField = (text) => function (item) {
+  const searchingString = String(text);
+  for (let value of Object.values(item)) {
+    if (typeof(value)=="string" && value.indexOf(searchingString) > -1){
+      return true
+    }
+  }
+  return false
+};
 
 
 module.exports = {
