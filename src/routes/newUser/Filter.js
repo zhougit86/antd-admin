@@ -10,17 +10,20 @@ import {Form, Row, Col, Input, Button} from 'antd'
 
 const Search = Input.Search
 const ColProps = {
-  xs: 24,
-  sm: 12,
+  xs: {
+    span:24,
+    offset:0
+  },
+  sm: {
+    span:12,
+    offset:0
+  },
   style: {
     marginBottom: 16,
   },
 }
 
-const TwoColProps = {
-  ...ColProps,
-  xl: 96,
-}
+
 
 
 const Filter = ({
@@ -43,14 +46,15 @@ const Filter = ({
   const {text} = filter
 
   return (
-    <Row gutter={24}>
+    <Row gutter={24} type="flex" justify="space-between" style={{  textAlign: 'right' }}>
       <Col {...ColProps} xl={{span: 4}} md={{span: 8}}>
         {getFieldDecorator('text', {initialValue: text})(<Search placeholder="Search for any field" size="large"
                                                                  onSearch={handleSubmit}/>)}
       </Col>
-      <Col {...TwoColProps} xl={{span: 10}} md={{span: 24}} sm={{span: 24}}>
-          <Button type="primary" onClick={refresh} loading={loading}>Refresh</Button>
-          <span style={{marginLeft: 8}}>{hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}</span>
+      <Col {...ColProps} xl={{span: 4, offset:16}} md={{span: 8,offset:8}}>
+        <span style={{marginRight: 8}}>{hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}</span>
+        <Button type="primary" onClick={refresh} loading={loading}>Refresh</Button>
+
       </Col>
 
     </Row>
