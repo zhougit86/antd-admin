@@ -127,4 +127,8 @@ module.exports = {
   [`GET ${apiPrefix}/dashboard`] (req, res) {
     res.json(Dashboard)
   },
+
+  [`GET ${apiPrefix}/hehe`] (req, res) {
+    res.json({a:1})
+  },
 }
