@@ -1,8 +1,9 @@
 import {parse} from 'qs'
 import lodash from 'lodash'
+import {sortJsonArr} from "../utils/dataUtils";
 
 export default {
-  namespace:'basicTable',
+  namespace: 'basicTable',
   state: {
     list: [],
     listBack: [],
@@ -12,17 +13,13 @@ export default {
       showTotal: total => `共 ${total} 条`,
       current: 1,
       total: null,
-      pageSize:5,
-      defaultPageSize:5,
-      pageSizeOptions:['5', '20', '30', '40'],
+      pageSize: 5,
+      defaultPageSize: 5,
+      pageSizeOptions: ['5', '20', '30', '40'],
     },
   },
 
-  effects: {
-
-
-
-  },
+  effects: {},
 
   reducers: {
 
@@ -45,8 +42,18 @@ export default {
       }
     },
 
-    changePage(state,{payload}){
+    changePage(state, {payload}){
       state.pagination.current = payload;
+      return {
+        ...state
+      }
+    },
+
+    sort(state, {payload}){
+
+      let orderType = payload.order === 'descend' ? 'desc' : 'asc';
+      sortJsonArr(state.list,payload.field,orderType);
+
       return {
         ...state
       }

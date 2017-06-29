@@ -16,6 +16,10 @@ class clusterTable extends BasicTableContainer {
     // console.log(this.props)
   }
 
+  handleChange= (pagination, filters, sorter)=>{
+    console.log(pagination, filters, sorter)
+  }
+
   render() {
 
     let columns = [
@@ -35,10 +39,12 @@ class clusterTable extends BasicTableContainer {
         title: 'NickName',
         dataIndex: 'nickName',
         key: 'nickName',
+        sorter: true,
       }, {
         title: 'Age',
         dataIndex: 'age',
         key: 'age',
+        sorter: true,
       }, {
         title: 'Gender',
         dataIndex: 'isMale',
@@ -78,27 +84,29 @@ class clusterTable extends BasicTableContainer {
     let tableProps = {
       columns: columns,
       dataSource: this.props.cluster.list,
-      loading:this.props.loading.effects['cluster/queryTableData'],
+      loading: this.props.loading.effects['cluster/queryTableData'],
       filterProps: {
         onFilterChange: this.search
       },
       pagination: {
-        ...this.props.cluster.pagination,
-        onChange:this.onChange
+        ...this.props.cluster.pagination
       },
+      onChange: this.onChange
     };
 
 
     return (
       <div className="content-inner">
-        <BasicTable {...tableProps} />
+        <BasicTable {...tableProps}
+                    // onChange={this.handleChange}
+        />
       </div>
     )
   }
 }
 
 
-function mapStateToProps({cluster,loading}) {
+function mapStateToProps({cluster, loading}) {
   return {
     cluster,
     loading
