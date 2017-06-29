@@ -75,41 +75,18 @@ const Cluster = ({cluster, dispatch, location}) => {
       ...location.query,
     },
     onFilterChange (value) {
-
-      console.log(value)
-      console.log('search function')
-
       dispatch({
         type:'cluster/search',
         payload:value.name
       })
-      // dispatch(routerRedux.push({
-      //   pathname: location.pathname,
-      //   query: {
-      //     ...value,
-      //     page: 1,
-      //     pageSize,
-      //   },
-      // }))
     },
-    onSearch (fieldsValue) {
-      console.log(value)
-      fieldsValue.keyword.length ? dispatch(routerRedux.push({
-        pathname: '/user',
-        query: {
-          field: fieldsValue.field,
-          keyword: fieldsValue.keyword,
-        },
-      })) : dispatch(routerRedux.push({
-        pathname: '/user',
-      }))
-    }
   };
 
   let tableProps = {
     columns,
     dataSource: cluster.list,
-    filterProps
+    filterProps,
+    pagination:cluster.pagination
   };
 
   return (

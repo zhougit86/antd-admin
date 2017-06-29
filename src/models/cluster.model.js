@@ -1,9 +1,6 @@
-import lodash from 'lodash'
-import basicTableModel from './basicTable.model'
-import {parse} from 'qs'
-import * as usersService from '../services/users'
+import lodash from 'lodash';
+import basicTableModel from './basicTable.model';
 import {fetch} from "../services/restfulService";
-const {query} = usersService;
 
 
 let basic = lodash.cloneDeep(basicTableModel);
@@ -20,7 +17,7 @@ export default {
       history.listen(location => {
         if (location.pathname === '/cluster') {
           dispatch({
-            type: 'query',
+            type: 'queryTableData',
             payload: location.query,
           })
         }
@@ -29,17 +26,15 @@ export default {
   },
   effects: {
     ...basic.effects,
-    *query ({payload}, {call, put}) {
+    *queryTableData ({payload}, {call, put}) {
 
-      const data = yield call(fetch, {url:'users'});
+      const data = yield call(fetch, {url:'cluster'});
       if (data) {
         yield put({
           type: 'querySuccess',
           payload: {
             list: data.data,
             pagination: {
-              current: Number(payload.page) || 1,
-              pageSize: Number(payload.pageSize) || 10,
               total: data.total,
             },
           },
@@ -50,6 +45,18 @@ export default {
   },
   reducers:{
     ...basic.reducers,
+    querySuccess (state, action) {
+      const {list, pagination} = action.payload;
+      return {
+        ...state,
+        list,
+        listBack: lodash.cloneDeep(list),
+        pagination: {
+          ...state.pagination,
+          ...pagination,
+        }
+      }
+    },
 
   }
 

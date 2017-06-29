@@ -15,18 +15,25 @@ export default {
     modalType: 'create',
     selectedRowKeys: [],
     isMotion: localStorage.getItem('antdAdminUserIsMotion') === 'true',
-    pagination: {
-      showSizeChanger: true,
-      showQuickJumper: true,
-      showTotal: total => `共 ${total} 条`,
-      current: 1,
-      total: null,
-    },
+    // pagination:false
+    // pagination: {
+    //   showSizeChanger: true,
+    //   showQuickJumper: true,
+    //   showTotal: total => `共 ${total} 条`,
+    //   current: 1,
+    //   total: null,
+    //   pageSize:5,
+    //   // onChange:function (page, pageSize) {
+    //   //   console.log('............')
+    //   //   this.current = page;
+    //   // }.bind(this),
+    //   // onShowSizeChange:function () {
+    //   //   console.log('............')
+    //   // }
+    // },
   },
 
   effects: {
-
-
 
     *'delete' ({payload}, {call, put, select}) {
       const data = yield call(remove, {id: payload})
@@ -75,18 +82,7 @@ export default {
 
   reducers: {
 
-    querySuccess (state, action) {
-      const {list, pagination} = action.payload
-      return {
-        ...state,
-        list,
-        listBack: lodash.cloneDeep(list),
-        pagination: {
-          ...state.pagination,
-          ...pagination,
-        }
-      }
-    },
+
 
     updateState (state, {payload}) {
       return {
@@ -110,10 +106,10 @@ export default {
 
     search(state, {payload}){
       let result = [];
-      console.log(result)
+      let list = lodash.cloneDeep(state.listBack);
       if (payload) {
-        if (state.list && state.list.length > 0) {
-          result = state.list.filter((row) => {
+        if (list && list.length > 0) {
+          result = list.filter((row) => {
             return Object.values(row).filter(item => item && String(item).toLowerCase().indexOf(payload.toLowerCase()) > -1).length > 0
           });
         }
