@@ -7,5 +7,28 @@ export default {
 
   namespace: 'cluster',
 
-  ...basic
+  state:{
+    ...basic.state
+  },
+  subscriptions: {
+    setup ({dispatch, history}) {
+      history.listen(location => {
+        if (location.pathname === '/cluster') {
+          dispatch({
+            type: 'query',
+            payload: location.query,
+          })
+        }
+      })
+    },
+  },
+  effects: {
+    ...basic.effects,
+
+  },
+  reducers:{
+    ...basic.reducers,
+
+  }
+
 }
