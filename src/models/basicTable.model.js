@@ -42,17 +42,13 @@ export default {
       }
     },
 
-    changePage(state, {payload}){
-      state.pagination.current = payload;
-      return {
-        ...state
+    tableChange(state, {payload: {sorter, pagination}}){
+
+      if (sorter.order) {
+        let orderType = sorter.order === 'descend' ? 'desc' : 'asc';
+        sortJsonArr(state.list, sorter.field, orderType);
       }
-    },
-
-    sort(state, {payload}){
-
-      let orderType = payload.order === 'descend' ? 'desc' : 'asc';
-      sortJsonArr(state.list,payload.field,orderType);
+      state.pagination.current = pagination.current;
 
       return {
         ...state

@@ -17,21 +17,14 @@ export class BasicTableContainer extends React.Component {
     })
   };
 
-  onChange = (pagination, filters, sorter) => {
-
-    if (sorter && sorter.column && sorter.column.sorter) {
-      this.props.dispatch({
-        type: `${this.props.route.path}/sort`,
-        payload: sorter
-      })
-    } else {
-      this.props.dispatch({
-        type: `${this.props.route.path}/changePage`,
-        payload: pagination.current
-      })
-    }
-
-
+  handleChange = (pagination, filters, sorter) => {
+    this.props.dispatch({
+      type: `${this.props.route.path}/tableChange`,
+      payload: {
+        sorter,
+        pagination
+      }
+    })
   }
 
 }
