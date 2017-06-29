@@ -8,7 +8,6 @@ export class BasicTableContainer extends React.Component {
     super(props);
   }
 
-
   search = (value) => {
     // console.log()
     console.log(value)
@@ -18,11 +17,13 @@ export class BasicTableContainer extends React.Component {
     })
   };
 
-  onChange = (page, pageSize) => {
-
+  handleChange = (pagination, filters, sorter) => {
     this.props.dispatch({
-      type:`${this.props.route.path}/changePage`,
-      payload:page
+      type: `${this.props.route.path}/tableChange`,
+      payload: {
+        sorter,
+        pagination
+      }
     })
   }
 

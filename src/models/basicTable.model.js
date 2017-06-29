@@ -1,13 +1,9 @@
-import {create, remove, update} from '../services/user'
-import * as usersService from '../services/users'
 import {parse} from 'qs'
 import lodash from 'lodash'
-
-const {query} = usersService;
-
+import {sortJsonArr} from "../utils/dataUtils";
 
 export default {
-  namespace:'basicTable',
+  namespace: 'basicTable',
   state: {
     list: [],
     listBack: [],
@@ -17,15 +13,13 @@ export default {
       showTotal: total => `共 ${total} 条`,
       current: 1,
       total: null,
-      pageSize:5,
+      pageSize: 5,
+      defaultPageSize: 5,
+      pageSizeOptions: ['5', '20', '30', '40'],
     },
   },
 
-  effects: {
-
-
-
-  },
+  effects: {},
 
   reducers: {
 
@@ -48,8 +42,14 @@ export default {
       }
     },
 
-    changePage(state,{payload}){
-      state.pagination.current = payload;
+    tableChange(state, {payload: {sorter, pagination}}){
+
+      if (sorter.order) {
+        let orderType = sorter.order === 'descend' ? 'desc' : 'asc';
+        sortJsonArr(state.list, sorter.field, orderType);
+      }
+      state.pagination.current = pagination.current;
+
       return {
         ...state
       }
