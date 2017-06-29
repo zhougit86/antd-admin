@@ -8,7 +8,6 @@ export class BasicTableContainer extends React.Component {
     super(props);
   }
 
-
   search = (value) => {
     // console.log()
     console.log(value)

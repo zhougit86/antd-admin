@@ -1,10 +1,5 @@
-import {create, remove, update} from '../services/user'
-import * as usersService from '../services/users'
 import {parse} from 'qs'
 import lodash from 'lodash'
-
-const {query} = usersService;
-
 
 export default {
   namespace:'basicTable',
@@ -18,6 +13,8 @@ export default {
       current: 1,
       total: null,
       pageSize:5,
+      defaultPageSize:5,
+      pageSizeOptions:['5', '20', '30', '40'],
     },
   },
 
