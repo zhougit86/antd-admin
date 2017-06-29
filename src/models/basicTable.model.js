@@ -3,13 +3,10 @@ import * as usersService from '../services/users'
 import {parse} from 'qs'
 import lodash from 'lodash'
 
-const {query} = usersService
+const {query} = usersService;
 
 
 export default {
-
-  // namespace: 'cluster',
-
   state: {
     list: [],
     listBack: [],
@@ -24,19 +21,6 @@ export default {
       showTotal: total => `共 ${total} 条`,
       current: 1,
       total: null,
-    },
-  },
-
-  subscriptions: {
-    setup ({dispatch, history}) {
-      history.listen(location => {
-        if (location.pathname === '/cluster') {
-          dispatch({
-            type: 'query',
-            payload: location.query,
-          })
-        }
-      })
     },
   },
 
@@ -142,7 +126,7 @@ export default {
 
     search(state, {payload}){
       let result = [];
-
+      console.log(result)
       if (payload) {
         if (state.list && state.list.length > 0) {
           result = state.list.filter((row) => {
@@ -158,5 +142,5 @@ export default {
         list: result
       }
     }
-  },
+  }
 }
