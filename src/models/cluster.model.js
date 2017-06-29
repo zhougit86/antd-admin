@@ -10,7 +10,8 @@ export default {
   namespace: 'cluster',
 
   state:{
-    ...basic.state
+    ...basic.state,
+    name:'cluster'
   },
   subscriptions: {
     setup ({dispatch, history}) {
