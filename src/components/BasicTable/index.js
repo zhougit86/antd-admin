@@ -1,16 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Modal } from 'antd'
+import {Table} from 'antd'
 import styles from './List.less'
 import classnames from 'classnames'
 import Filter from './Filter'
-// import AnimTableBody from '../DataTable/AnimTableBody'
-// import DropOption from '../DropOption/DropOption'
-// import { Link } from 'dva/router'
+import Pagination from './Pagination'
 
-const confirm = Modal.confirm
-
-const BasicTable = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) => {
+const BasicTable = ({isMotion, location, ...tableProps}) => {
 
 
   return (
@@ -18,20 +14,22 @@ const BasicTable = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProp
       <Filter {...tableProps.filterProps} />
       <Table
         {...tableProps}
-        className={classnames({ [styles.table]: true, [styles.motion]: isMotion })}
+        className={classnames({[styles.table]: true, [styles.motion]: isMotion})}
         bordered
-        scroll={{ x: 1000 }}
+        scroll={{x: 1000}}
         simple
         rowKey={record => record.id}
         // getBodyWrapper={getBodyWrapper}
       />
+      {/*<Pagination/>*/}
     </div>
   )
 }
 
 BasicTable.propTypes = {
-  onDeleteItem: PropTypes.func,
-  onEditItem: PropTypes.func,
+  // onDeleteItem: PropTypes.func,
+  // onEditItem: PropTypes.func,
+  // tableProps: PropTypes.object,
   isMotion: PropTypes.bool,
   location: PropTypes.object,
 }

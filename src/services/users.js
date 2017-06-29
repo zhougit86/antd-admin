@@ -3,7 +3,6 @@ const { api } = config;
 const { users } = api;
 
 export async function query (params) {
-  console.log('...........')
   return request({
     url: users,
     method: 'get',
