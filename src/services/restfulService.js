@@ -6,7 +6,6 @@ import config from "../config";
 
 
 export async function fetch({url, params = null, method = 'get'}) {
-  console.log('xxxxxxxxxxxxxxx')
   return request({
     url: config.uri.api + url,
     method: method,

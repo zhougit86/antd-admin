@@ -150,6 +150,15 @@ const Routers = function ({history, app}) {
           },
         },
         {
+          path: 'host',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./models/host.model'));
+              cb(null, require('./routes/host/'))
+            }, 'host')
+          },
+        },
+        {
           path: '*',
           getComponent (nextState, cb) {
             require.ensure([], require => {
