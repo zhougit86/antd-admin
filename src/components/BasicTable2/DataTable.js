@@ -71,12 +71,21 @@ class DataTable extends React.Component {
       current: this.state.current
     };
 
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      },
+      getCheckboxProps: record => ({
+        disabled: record.name === 'Disabled User',    // Column configuration not to be checked
+      }),
+    };
 
     return (
       <div>
         <Filter {...this.filterProps} />
         <Table
           ref="DataTable"
+          rowSelection={rowSelection}
           bordered
           onChange={this.handleTableChange}
           {...tableProps}
