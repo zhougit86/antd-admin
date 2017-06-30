@@ -7,6 +7,13 @@ export default modelExtend(pageFrontModel, {
   namespace: 'newUser',
 
   reducers:{
+    showModal (state, { payload }) {
+      return { ...state, ...payload, modalVisible: false }
+    },
+
+    hideModal (state) {
+      return { ...state, modalVisible: false }
+    },
   },
 
   subscriptions: {

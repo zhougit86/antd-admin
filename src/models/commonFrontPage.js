@@ -36,6 +36,7 @@ const pageFrontModel = modelExtend(model, {
     filteredInfo: null,
     selectedRowKeys: [],
     filter: {},
+    modalType: 'create',
   },
 
   reducers: {

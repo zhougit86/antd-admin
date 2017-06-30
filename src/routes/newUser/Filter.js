@@ -27,6 +27,7 @@ const ColProps = {
 
 
 const Filter = ({
+  onAdd,
   refresh,
   loading,
   selectedRowKeys,
@@ -46,18 +47,21 @@ const Filter = ({
   const {text} = filter
 
   return (
-    <Row gutter={24} type="flex" justify="space-between" style={{  textAlign: 'right' }}>
+    <Row gutter={24} type="flex" justify="space-between" >
       <Col {...ColProps} xl={{span: 4}} md={{span: 8}}>
         {getFieldDecorator('text', {initialValue: text})(<Search placeholder="Search for any field" size="large"
                                                                  onSearch={handleSubmit}/>)}
       </Col>
-      <Col {...ColProps} xl={{span: 4, offset:16}} md={{span: 8,offset:8}}>
+      <Col {...ColProps} xl={{span: 4, offset:16}} md={{span: 8,offset:8}} style={{  textAlign: 'right' }}>
         <span style={{marginRight: 8}}>{hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}</span>
-        <Button type="primary" onClick={refresh} loading={loading}>Refresh</Button>
-
+        <Button type="danger" onClick={refresh} loading={loading}>Refresh</Button>
+      </Col>
+      <Col {...ColProps} xl={{span: 4}} md={{span: 8}}>
+        <Button size="large" type="ghost" onClick={onAdd}>Create</Button>
       </Col>
 
     </Row>
+
   )
 }
 

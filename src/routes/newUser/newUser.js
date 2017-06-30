@@ -63,6 +63,7 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
       dataIndex: 'website',
       key: 'website',
     },
+
     {
       title: 'Phone',
       dataIndex: 'phone',

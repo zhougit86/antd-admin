@@ -13,7 +13,8 @@ class DataTable extends React.Component {
     this.state = {
       loading: true,
       current: 1,
-      dataSourceBack: []
+      dataSourceBack: [],
+      pageSize: 5,
     }
   }
 
@@ -35,7 +36,7 @@ class DataTable extends React.Component {
       let orderType = sorter.order === 'descend' ? 'desc' : 'asc';
       sortJsonArr(this.state.dataSource, sorter.field, orderType);
     }
-    this.setState({current: pagination.current})
+    this.setState({current: pagination.current,pageSize: pagination.pageSize})
   };
 
   filterProps = {
@@ -65,7 +66,7 @@ class DataTable extends React.Component {
       showQuickJumper: true,
       showTotal: total => `共 ${total} 条`,
       total: null,
-      pageSize: 5,
+      pageSize: this.state.pageSize,
       defaultPageSize: 5,
       pageSizeOptions: ['5', '20', '30', '40'],
       current: this.state.current
