@@ -1,13 +1,12 @@
 /**
  * Created by chenkang1 on 2017/6/30.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'dva'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'dva';
 import DataTable from '../../components/BasicTable2/DataTable';
 import {Modal, Row, Col, Card,Button} from 'antd';
-import styles from './List.less';
-import {Link} from 'dva/router'
+import {Link} from 'dva/router';
 import DropOption from "../../components/DropOption/DropOption";
 
 const confirm = Modal.confirm;
@@ -52,7 +51,6 @@ class DataTablePage extends React.Component {
         dataIndex: 'avatar',
         key: 'avatar',
         width: 64,
-        className: styles.avatar,
         render: (text) => <img alt={'avatar'} width={24} src={text}/>,
       }, {
         title: 'Name',
@@ -112,7 +110,6 @@ class DataTablePage extends React.Component {
 
 
   render() {
-
     let modalProps = {
       visible: this.props.host.modalVisible,
       maskClosable: true,
@@ -134,9 +131,8 @@ class DataTablePage extends React.Component {
       <div className="content-inner">
         <Row gutter={32}>
           <Col lg={24} md={24}>
-
             <Card title="远程数据">
-              <div>
+              <div className='action-btn-container'>
                 <Button type="primary">Primary</Button>
               </div>
               <DataTable
