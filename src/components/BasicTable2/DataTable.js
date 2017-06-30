@@ -1,101 +1,89 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table } from 'antd'
-import { request } from '../../utils'
-import lodash from 'lodash'
-import './DataTable.less'
+import {Table} from 'antd'
+import './DataTable.less';
+import lodash from 'lodash';
+import {fetch} from "../../services/restfulService";
+import {sortJsonArr} from "../../utils/dataUtils";
+import Filter from "./Filter";
 
 class DataTable extends React.Component {
-  constructor (props) {
-    super(props)
-    // const { dataSource, pagination = {
-    //   showSizeChanger: true,
-    //   showQuickJumper: true,
-    //   showTotal: total => `共 ${total} 条`,
-    //   current: 1,
-    //   total: 100 },
-    // } = props
-    // this.state = {
-    //   loading: false,
-    //   dataSource,
-    //   fetchData: {},
-    //   pagination,
-    // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      current: 1,
+      dataSourceBack: []
+    }
   }
 
-  componentDidMount () {
-    // if (this.props.fetch) {
-    //   this.fetch()
-    // }
+  componentDidMount() {
+    const {fetchData} = this.props;
+
+    fetch(fetchData)
+      .then((result) => {
+        this.setState({
+          dataSource: result.data,
+          dataSourceBack: lodash.cloneDeep(result.data),
+          loading: false
+        });
+      })
   }
 
-  // componentWillReceiveProps (nextProps) {
-  //   const staticNextProps = lodash.cloneDeep(nextProps)
-  //   delete staticNextProps.columns
-  //   const { columns, ...otherProps } = this.props
-  //
-  //   if (!lodash.isEqual(staticNextProps, otherProps)) {
-  //     this.props = nextProps
-  //     this.fetch()
-  //   }
-  // }
+  handleTableChange = (pagination, filters, sorter) => {
+    if (sorter.order) {
+      let orderType = sorter.order === 'descend' ? 'desc' : 'asc';
+      sortJsonArr(this.state.dataSource, sorter.field, orderType);
+    }
+    this.setState({current: pagination.current})
+  };
 
-  // handleTableChange = (pagination, filters, sorter) => {
-  //   const pager = this.state.pagination
-  //   pager.current = pagination.current
-  //   this.setState({
-  //     pagination: pager,
-  //     fetchData: {
-  //       results: pagination.pageSize,
-  //       page: pagination.current,
-  //       sortField: sorter.field,
-  //       sortOrder: sorter.order,
-  //       ...filters,
-  //     },
-  //   }, () => {
-  //     this.fetch()
-  //   })
-  // }
+  filterProps = {
+    onFilterChange: ({name:keyword})=> {
+      let result = [];
+      let list = lodash.cloneDeep(this.state.dataSourceBack);
+      if (keyword) {
+        if (list && list.length > 0) {
+          result = list.filter((row) => {
+            return Object.values(row).filter(item => item && String(item).toLowerCase().indexOf(keyword.toLowerCase()) > -1).length > 0
+          });
+        }
+      } else {
+        result = this.state.dataSourceBack;
+      }
+      this.setState({dataSource: result})
+    }
+  };
 
-  // fetch = () => {
-  //   const { fetch: { url, data, dataKey } } = this.props
-  //   const { fetchData } = this.state
-  //   this.setState({ loading: true })
-  //   this.promise = request({
-  //     url,
-  //     data: {
-  //       ...data,
-  //       ...fetchData,
-  //     },
-  //   }).then((result) => {
-  //     if (!this.refs.DataTable) {
-  //       return
-  //     }
-  //     const { pagination } = this.state
-  //     pagination.total = result.total || pagination.total
-  //     this.setState({
-  //       loading: false,
-  //       dataSource: dataKey ? result[dataKey] : result.data,
-  //       pagination,
-  //     })
-  //   })
-  // }
+  render() {
+    const tableProps = {
+      columns: this.props.columns,
+      ...this.state
+    };
+    let pagination = {
+      showSizeChanger: true,
+      showQuickJumper: true,
+      showTotal: total => `共 ${total} 条`,
+      total: null,
+      pageSize: 5,
+      defaultPageSize: 5,
+      pageSizeOptions: ['5', '20', '30', '40'],
+      current: this.state.current
+    };
 
-  render () {
-    // const { fetch, ...tableProps } = this.props
-    // const { loading, dataSource, pagination } = this.state
 
-    const tableProps = this.props
-
-    return (<Table
-      ref="DataTable"
-      bordered
-      // loading={loading}
-      // onChange={this.handleTableChange}
-      {...tableProps}
-      // pagination={pagination}
-      // dataSource={dataSource}
-    />)
+    return (
+      <div>
+        <Filter {...this.filterProps} />
+        <Table
+          ref="DataTable"
+          bordered
+          onChange={this.handleTableChange}
+          {...tableProps}
+          pagination={pagination}
+        />
+      </div>
+    )
   }
 }
 

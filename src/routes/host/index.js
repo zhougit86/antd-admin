@@ -14,84 +14,145 @@ import {fetch} from "../../services/restfulService";
 class DataTablePage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      dataSource: [],
-      loading:true,
-      columns: [
-        {
-          title: 'Avatar',
-          dataIndex: 'avatar',
-          key: 'avatar',
-          width: 64,
-          className: styles.avatar,
-          render: (text) => <img alt={'avatar'} width={24} src={text}/>,
-        }, {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
-        }, {
-          title: 'NickName',
-          dataIndex: 'nickName',
-          key: 'nickName',
-          sorter: true,
-        }, {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-          sorter: true,
-        }, {
-          title: 'Gender',
-          dataIndex: 'isMale',
-          key: 'isMale',
-          render: (text) => <span>{text
-            ? 'Male'
-            : 'Female'}</span>,
-        },
-        {
-          title: 'Phone',
-          dataIndex: 'phone',
-          key: 'phone',
-        }, {
-          title: 'Email',
-          dataIndex: 'email',
-          key: 'email',
-        },
-        {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-        }, {
-          title: 'CreateTime',
-          dataIndex: 'createTime',
-          key: 'createTime',
-        }, {
-          title: 'Operation',
-          key: 'operation',
-          width: 100,
-          render: (text, record) => {
-            return <DropOption onMenuClick={e => handleMenuClick(record, e)}
-                               menuOptions={[{key: '1', name: 'Update'}, {key: '2', name: 'Delete'}]}/>
-          },
-        },
-      ]
-
-    }
+    // this.state = {
+    //   dataSource: [],
+    //   loading:true,
+    //   columns: [
+    //     {
+    //       title: 'Avatar',
+    //       dataIndex: 'avatar',
+    //       key: 'avatar',
+    //       width: 64,
+    //       className: styles.avatar,
+    //       render: (text) => <img alt={'avatar'} width={24} src={text}/>,
+    //     }, {
+    //       title: 'Name',
+    //       dataIndex: 'name',
+    //       key: 'name',
+    //       render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
+    //     }, {
+    //       title: 'NickName',
+    //       dataIndex: 'nickName',
+    //       key: 'nickName',
+    //       sorter: true,
+    //     }, {
+    //       title: 'Age',
+    //       dataIndex: 'age',
+    //       key: 'age',
+    //       sorter: true,
+    //     }, {
+    //       title: 'Gender',
+    //       dataIndex: 'isMale',
+    //       key: 'isMale',
+    //       render: (text) => <span>{text
+    //         ? 'Male'
+    //         : 'Female'}</span>,
+    //     },
+    //     {
+    //       title: 'Phone',
+    //       dataIndex: 'phone',
+    //       key: 'phone',
+    //     }, {
+    //       title: 'Email',
+    //       dataIndex: 'email',
+    //       key: 'email',
+    //     },
+    //     {
+    //       title: 'Address',
+    //       dataIndex: 'address',
+    //       key: 'address',
+    //     }, {
+    //       title: 'CreateTime',
+    //       dataIndex: 'createTime',
+    //       key: 'createTime',
+    //     }, {
+    //       title: 'Operation',
+    //       key: 'operation',
+    //       width: 100,
+    //       render: (text, record) => {
+    //         return <DropOption onMenuClick={e => handleMenuClick(record, e)}
+    //                            menuOptions={[{key: '1', name: 'Update'}, {key: '2', name: 'Delete'}]}/>
+    //       },
+    //     },
+    //   ]
+    //
+    // }
   }
 
   componentDidMount() {
-    fetch({url: 'cluster'}).then((result) => {
-      this.setState({
-        dataSource: result.data,
-        loading:false
-      });
-    })
+    // fetch({url: 'cluster'}).then((result) => {
+    //   this.setState({
+    //     dataSource: result.data,
+    //     loading:false
+    //   });
+    // })
   }
 
 
   render() {
     let tableDataProps = {
-      ...this.state
+        columns: [
+          {
+            title: 'Avatar',
+            dataIndex: 'avatar',
+            key: 'avatar',
+            width: 64,
+            className: styles.avatar,
+            render: (text) => <img alt={'avatar'} width={24} src={text}/>,
+          }, {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
+          }, {
+            title: 'NickName',
+            dataIndex: 'nickName',
+            key: 'nickName',
+            sorter: true,
+          }, {
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'age',
+            sorter: true,
+          }, {
+            title: 'Gender',
+            dataIndex: 'isMale',
+            key: 'isMale',
+            render: (text) => <span>{text
+              ? 'Male'
+              : 'Female'}</span>,
+          },
+          {
+            title: 'Phone',
+            dataIndex: 'phone',
+            key: 'phone',
+          }, {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+          },
+          {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+          }, {
+            title: 'CreateTime',
+            dataIndex: 'createTime',
+            key: 'createTime',
+          }, {
+            title: 'Operation',
+            key: 'operation',
+            width: 100,
+            render: (text, record) => {
+              return <DropOption onMenuClick={e => handleMenuClick(record, e)}
+                                 menuOptions={[{key: '1', name: 'Update'}, {key: '2', name: 'Delete'}]}/>
+            },
+          },
+        ],
+        fetchData:{
+          url:'cluster',
+          params:null,
+        }
     };
 
     return (<div className="content-inner">
