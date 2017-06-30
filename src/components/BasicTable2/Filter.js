@@ -36,7 +36,7 @@ const Filter = ({
         </div>
       </Col>
       <Col {...TwoColProps} xl={{span: 12}} md={{span: 12}} sm={{span: 9}}>
-        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <div className="search-container">
           {getFieldDecorator('name', {initialValue: name})(<Search placeholder="Search" size="large"
                                                                    onSearch={handleSubmit}
                                                                    style={{width: '200px', 'margin-right': '10px'}}/>)}
