@@ -102,8 +102,6 @@ const Menus = ({ siderFold, darkTheme, location, handleClickNavMenu, navOpenKeys
     defaultSelectedKeys = getPathArray(menu, currentMenu, 'mpid', 'id')
   }
 
-  console.log(defaultSelectedKeys)
-
   return (
     <Menu
       {...menuProps}

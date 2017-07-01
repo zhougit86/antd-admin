@@ -30,4 +30,14 @@ export function sortJsonArr(jsonArr, sortName, sortType, addition, additionOrder
       }
     });
   }
-};
+}
+
+export function delay(millisecond = 100) {
+  this.setState({loading:true});
+  return new Promise((resolve)=> {
+    setTimeout(function () {
+      resolve();
+      this.setState({loading:false});
+    }.bind(this),millisecond)
+  })
+}

@@ -4,7 +4,7 @@ import {Table} from 'antd'
 import './DataTable.less';
 import lodash from 'lodash';
 import {fetch} from "../../services/restfulService";
-import {sortJsonArr} from "../../utils/dataUtils";
+import {delay, sortJsonArr} from "../../utils/dataUtils";
 import Filter from "./Filter";
 
 class DataTable extends React.Component {
@@ -19,8 +19,13 @@ class DataTable extends React.Component {
   }
 
   componentDidMount() {
-    const {fetchData} = this.props;
 
+    this.getTableData();
+  }
+
+  getTableData = () => {
+    const {fetchData} = this.props;
+    this.setState({loading: true});
     fetch(fetchData)
       .then((result) => {
         this.setState({
@@ -29,34 +34,53 @@ class DataTable extends React.Component {
           loading: false
         });
       })
-  }
+  };
 
   handleTableChange = (pagination, filters, sorter) => {
-    if (sorter.order) {
-      let orderType = sorter.order === 'descend' ? 'desc' : 'asc';
-      sortJsonArr(this.state.dataSource, sorter.field, orderType);
-    }
-    this.setState({current: pagination.current,pageSize: pagination.pageSize})
+    delay.call(this).then(() => {
+      if (sorter.order) {
+        let orderType = sorter.order === 'descend' ? 'desc' : 'asc';
+        sortJsonArr(this.state.dataSource, sorter.field, orderType);
+      }
+      this.setState({current: pagination.current, pageSize: pagination.pageSize})
+    })
   };
 
   filterProps = {
-    onFilterChange: ({name:keyword})=> {
-      let result = [];
-      let list = lodash.cloneDeep(this.state.dataSourceBack);
-      if (keyword) {
-        if (list && list.length > 0) {
-          result = list.filter((row) => {
-            return Object.values(row).filter(item => item && String(item).toLowerCase().indexOf(keyword.toLowerCase()) > -1).length > 0
-          });
+    onFilterChange: ({name: keyword}) => {
+      delay.call(this).then(() => {
+        let result = [];
+        let list = lodash.cloneDeep(this.state.dataSourceBack);
+        if (keyword) {
+          if (list && list.length > 0) {
+            result = list.filter((row) => {
+              return Object.values(row).filter(item => item && String(item).toLowerCase().indexOf(keyword.toLowerCase()) > -1).length > 0
+            });
+          }
+        } else {
+          result = this.state.dataSourceBack;
         }
-      } else {
-        result = this.state.dataSourceBack;
+        this.setState({dataSource: result})
+      })
+    }
+  };
+
+  checkRefresh = () => {
+    let refresh = this.state.refresh;
+    if (!refresh) {
+      this.setState({refresh: this.props.refresh})
+    } else {
+      if (this.props.refresh !== refresh) {
+        this.setState({refresh: this.props.refresh});
+        this.getTableData()
       }
-      this.setState({dataSource: result})
     }
   };
 
   render() {
+
+    this.checkRefresh();
+
     const tableProps = {
       columns: this.props.columns,
       ...this.state
@@ -75,6 +99,7 @@ class DataTable extends React.Component {
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.props.handleSelectItems(selectedRows);
       },
       getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User',    // Column configuration not to be checked
@@ -99,14 +124,9 @@ class DataTable extends React.Component {
 
 
 DataTable.propTypes = {
-  fetch: PropTypes.object,
-  rowKey: PropTypes.string,
-  pagination: React.PropTypes.oneOfType([
-    React.PropTypes.bool,
-    React.PropTypes.object,
-  ]),
   columns: PropTypes.array,
   dataSource: PropTypes.array,
-}
+  fetchData:PropTypes.object
+};
 
 export default DataTable
