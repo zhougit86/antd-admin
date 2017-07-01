@@ -56,17 +56,20 @@ class DataTablePage extends React.Component {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        width: 120,
         render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
       }, {
         title: 'NickName',
         dataIndex: 'nickName',
         key: 'nickName',
         sorter: true,
+        width: 100,
       }, {
         title: 'Age',
         dataIndex: 'age',
         key: 'age',
         sorter: true,
+        width: 64,
       }, {
         title: 'Gender',
         dataIndex: 'isMale',

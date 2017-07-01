@@ -160,10 +160,9 @@ module.exports = [
   },
   {
     id: 623,
-    bpid: 62,
-    // mpid: 62,
+    bpid: 1,
     name: 'cluster',
-    router: 'cluster',
+    router: '/cluster',
     icon: 'setting',
   },
 
