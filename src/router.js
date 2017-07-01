@@ -141,15 +141,6 @@ const Routers = function ({history, app}) {
           },
         },
         {
-          path: 'cluster',
-          getComponent (nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./models/cluster.model'))
-              cb(null, require('./routes/cluster/'))
-            }, 'cluster')
-          },
-        },
-        {
           path: 'host',
           getComponent (nextState, cb) {
             require.ensure([], require => {

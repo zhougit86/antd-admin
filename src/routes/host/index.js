@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'dva';
-import DataTable from '../../components/BasicTable2/DataTable';
+import DataTable from '../../components/BasicTable/DataTable';
 import {Modal, Row, Col, Card,Button} from 'antd';
 import {Link} from 'dva/router';
 import DropOption from "../../components/DropOption/DropOption";
@@ -50,26 +50,26 @@ class DataTablePage extends React.Component {
         title: 'Avatar',
         dataIndex: 'avatar',
         key: 'avatar',
-        width: 64,
+        // width: 64,
         render: (text) => <img alt={'avatar'} width={24} src={text}/>,
       }, {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        width: 120,
+        // width: 120,
         render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
       }, {
         title: 'NickName',
         dataIndex: 'nickName',
         key: 'nickName',
         sorter: true,
-        width: 100,
+        // width: 100,
       }, {
         title: 'Age',
         dataIndex: 'age',
         key: 'age',
         sorter: true,
-        width: 64,
+        // width: 64,
       }, {
         title: 'Gender',
         dataIndex: 'isMale',
