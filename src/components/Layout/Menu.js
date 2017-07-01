@@ -102,12 +102,15 @@ const Menus = ({ siderFold, darkTheme, location, handleClickNavMenu, navOpenKeys
     defaultSelectedKeys = getPathArray(menu, currentMenu, 'mpid', 'id')
   }
 
+  console.log(defaultSelectedKeys)
+
   return (
     <Menu
       {...menuProps}
       mode={siderFold ? 'vertical' : 'inline'}
       theme={darkTheme ? 'dark' : 'light'}
       onClick={handleClickNavMenu}
+      selectedKeys={defaultSelectedKeys}
       defaultSelectedKeys={defaultSelectedKeys}
     >
       {menuItems}
