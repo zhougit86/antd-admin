@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Table} from 'antd'
+import {Table,message} from 'antd'
 import './DataTable.less';
 import lodash from 'lodash';
 import {fetch} from "../../services/restfulService";

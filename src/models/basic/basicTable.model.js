@@ -3,7 +3,6 @@
  */
 export default {
   state: {
-    modalVisible: false,
     selectedItems: [],
     refresh: 1,
   },
@@ -11,11 +10,11 @@ export default {
   effects: {},
 
   reducers: {
-    showModal (state, {payload}) {
-      return {...state, ...payload, modalVisible: true}
+    showModal (state, {payload: {key: key}}) {
+      return {...state, [key]: true}
     },
-    hideModal (state) {
-      return {...state, modalVisible: false}
+    hideModal (state, {payload: {key: key}}) {
+      return {...state, [key]: false}
     },
     updateSelectItems(state, {payload: selectedItems}){
       return {
