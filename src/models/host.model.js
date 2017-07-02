@@ -1,36 +1,22 @@
 /**
  * Created by chenkang1 on 2017/6/30.
  */
-import {parse} from 'qs'
+import lodash from 'lodash';
+import basicTableModel from './basic/basicTable.model';
+
+const model = lodash.cloneDeep(basicTableModel);
 
 export default {
   namespace: 'host',
   state: {
-    modalVisible: false,
-    selectedItems: [],
-    refresh: 1,
+    ...model.state
   },
 
-  effects: {},
+  effects: {
+    ...model.effects
+  },
 
   reducers: {
-    showModal (state, {payload}) {
-      return {...state, ...payload, modalVisible: true}
-    },
-    hideModal (state) {
-      return {...state, modalVisible: false}
-    },
-    updateSelectItems(state, {payload: selectedItems}){
-      return {
-        ...state,
-        selectedItems
-      }
-    },
-    refresh(state){
-      return {
-        ...state,
-        refresh: ++state.refresh
-      }
-    }
+    ...model.reducers
   }
 }
