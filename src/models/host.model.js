@@ -9,7 +9,9 @@ const model = lodash.cloneDeep(basicTableModel);
 export default {
   namespace: 'host',
   state: {
-    ...model.state
+    ...model.state,
+    modalVisible: false,
+    batchModalVisible:false,
   },
 
   effects: {

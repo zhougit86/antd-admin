@@ -5,9 +5,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'dva';
 import DataTable from '../../components/BasicTable/DataTable';
-import {Modal, Row, Col, Card, Button, Icon} from 'antd';
+import {Modal, Row, Col, Card, Button} from 'antd';
 import {Link} from 'dva/router';
 import DropOption from "../../components/DropOption/DropOption";
+import BatchModal from '../../components/modals/BatchModal';
 
 const confirm = Modal.confirm;
 
@@ -28,8 +29,7 @@ class HostPage extends React.Component {
       dispatch({
         type: 'host/showModal',
         payload: {
-          modalType: 'update',
-          // currentItem: item,
+          key: 'modalVisible',
         },
 
       })
@@ -44,12 +44,21 @@ class HostPage extends React.Component {
     }
   };
 
+  showBatchModal = () => {
+    let {dispatch} = this.props;
+    dispatch({
+      type: 'host/showModal',
+      payload: {
+        key: 'batchModalVisible',
+      },
+    })
+  }
 
   refresh = () => {
     this.props.dispatch({type: 'host/refresh'})
   };
 
-  init = ()=>{
+  init = () => {
     this.modalProps = {
       visible: this.props.host.modalVisible,
       maskClosable: true,
@@ -62,7 +71,9 @@ class HostPage extends React.Component {
         let {dispatch} = this.props;
         dispatch({
           type: 'host/hideModal',
-          payload: {}
+          payload: {
+            key: 'modalVisible'
+          }
         })
       }
     };
@@ -138,7 +149,25 @@ class HostPage extends React.Component {
       }
     };
 
-
+    this.batchModalProps = {
+      visible: this.props.host.batchModalVisible,
+      maskClosable: true,
+      title: `Batch Action Modal`,
+      wrapClassName: 'vertical-center-modal',
+      selectedItems:this.props.host.selectedItems,
+      onOk: (data) => {
+        console.log(data)
+      },
+      onCancel: () => {
+        let {dispatch} = this.props;
+        dispatch({
+          type: 'host/hideModal',
+          payload: {
+            key: 'batchModalVisible'
+          }
+        })
+      }
+    };
   };
 
 
@@ -152,6 +181,7 @@ class HostPage extends React.Component {
             <Card title="远程数据">
               <div className='action-btn-container'>
                 <Button type="primary" onClick={this.refresh} icon="reload"/>
+                <Button type="primary" onClick={this.showBatchModal}>Batch Action</Button>
               </div>
               <DataTable
                 {...this.tableDataProps}
@@ -160,6 +190,7 @@ class HostPage extends React.Component {
           </Col>
         </Row>
         {this.props.host.modalVisible && <Modal {...this.modalProps} />}
+        {this.props.host.batchModalVisible && <BatchModal {...this.batchModalProps}/>}
       </div>
     )
   }
