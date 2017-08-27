@@ -132,12 +132,12 @@ const Routers = function ({history, app}) {
             }, 'post')
           },
         }, {
-          path: 'newUser',
+          path: 'Object',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./models/newUser'))
-              cb(null, require('./routes/newUser/'))
-            }, 'newUser')
+              registerModel(app, require('./models/Object'))
+              cb(null, require('./routes/Object/'))
+            }, 'Object')
           },
         },
         {

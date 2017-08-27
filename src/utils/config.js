@@ -24,6 +24,7 @@ module.exports = {
     dashboard: `${APIV1}/dashboard`,
     v1test: `${APIV1}/test`,
     v2test: `${APIV2}/test`,
-    newUser: `${APINEW}/users`,
+    newUser: `${APINEW}/newUser`,
+    Obj: `${APINEW}/config`,
   },
 }

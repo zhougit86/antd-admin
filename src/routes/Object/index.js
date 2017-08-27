@@ -4,46 +4,47 @@
 
 import React from 'react'
 import {connect} from 'dva'
-import {Tabs,Modal} from 'antd'
+import {Tabs} from 'antd'
 import {routerRedux} from 'dva/router'
 import PropTypes from 'prop-types'
-import List from './newUser'
+import List from './Object'
 import Filter from './Filter'
+import Modal from './Modal'
 
-const Index = ({newUser, dispatch, location, loading}) => {
-  const {listFiltered, pagination, sortedInfo, filter,modalVisible} = newUser;
-  let {selectedRowKeys} =newUser;
+const Index = ({Object, dispatch, location, loading}) => {
+  const {listFiltered, pagination, sortedInfo, filter,modalVisible,modalType} = Object;
+  let {selectedRowKeys} =Object;
   const hasSelected = selectedRowKeys.length > 0;
 
   const listProps = {
     scroll: true,
     pagination,
     dataSource: listFiltered,
-    loading: loading.effects['newUser/query'],
+    loading: loading.effects['Object/query'],
     sortedInfo,
     selectedRowKeys,
   }
 
   const refresh =() =>{
     dispatch({
-      type: 'newUser/query', payload: {}
+      type: 'Object/query', payload: {}
     })
     selectedRowKeys = [];
   }
 
   const filterProps = {
-    loading: loading.effects['newUser/query'],
+    loading: loading.effects['Object/query'],
     filter: filter,
     hasSelected,
     selectedRowKeys,
     onFilterChange (value) {
       dispatch(
-        {type: 'newUser/filter', payload: {filter:value.text}}
+        {type: 'Object/filter', payload: {filter:value.text}}
       )
     },
     onAdd(){
       dispatch({
-        type: 'newUser/showModal',
+        type: 'Object/showModal',
         payload: {
           modalType: 'create',
         },
@@ -53,8 +54,25 @@ const Index = ({newUser, dispatch, location, loading}) => {
   };
 
   const modalProps = {
+    item: modalType === 'create' ? {} : currentItem,
     visible: modalVisible,
     maskClosable: false,
+
+    confirmLoading: loading.effects['Object/update'],
+    title: "Create Object",
+
+    wrapClassName: 'vertical-center-modal',
+    onOk (data) {
+      dispatch({
+        type: `Object/${modalType}`,
+        payload: data,
+      })
+    },
+    onCancel () {
+      dispatch({
+        type: 'Object/hideModal',
+      })
+    },
   };
 
   return (<div className="content-inner">
@@ -71,4 +89,4 @@ Index.propTypes = {
   dispatch: PropTypes.func,
 }
 
-export default connect(({newUser, loading}) => ({newUser, loading}))(Index)
+export default connect(({Object, loading}) => ({Object, loading}))(Index)

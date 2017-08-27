@@ -22,9 +22,9 @@ module.exports = [
   {
     id: 8,
     bpid: 1,
-    name: 'NewUser',
+    name: 'Object',
     icon: 'skin',
-    router: '/newUser',
+    router: '/Object',
   },
   {
     id: 21,

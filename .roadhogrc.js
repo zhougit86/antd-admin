@@ -12,7 +12,7 @@ export default {
   // 接口代理示例
   "proxy": {
     "/apinew": {
-    "target": "http://jsonplaceholder.typicode.com/",
+    "target": "http://localhost:8080/api/",
     "changeOrigin": true,
     "pathRewrite": { "^/apinew" : "" }
   },

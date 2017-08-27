@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'dva';
 import {Table, Popconfirm} from 'antd';
-import styles from './newUser.less';
+import styles from './Object.less';
 
 
 const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
@@ -17,7 +17,7 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
   function handleChange(pagination, filters, sorter) {
     // console.log('Various parameters', pagination, filters, sorter);
     dispatch({
-        type: 'newUser/change',
+        type: 'Object/change',
         payload: {pagination, filters, sorter}
       }
     )
@@ -28,7 +28,7 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
     onChange: (selectedRowKeys, selectedRows) => {
       // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       dispatch({
-          type: 'newUser/updateState',
+          type: 'Object/updateState',
           payload: {selectedRowKeys}
         }
       )
@@ -40,35 +40,74 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
 
 
   const columns = [
+    // {
+    //   title: 'ID',
+    //   dataIndex: 'id',
+    //   key: 'id',
+    //   sorter: (a, b) => a.id - b.id,
+    //   sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+    // },
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      sorter: (a, b) => a.id - b.id,
-      sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+      title: 'ServiceName',
+      dataIndex: 'ServiceName',
+      key: 'ServiceName',
+      // render: text => <a href="">{text}</a>,
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'ObjectName',
+      dataIndex: 'ObjectName',
+      key: 'ObjectName',
       render: text => <a href="">{text}</a>,
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: 'Website',
-      dataIndex: 'website',
-      key: 'website',
+      title: 'ObjectType',
+      dataIndex: 'ObjectType',
+      key: 'ObjectType',
     },
 
     {
-      title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone',
+      title: 'MinNum',
+      dataIndex: 'MinNum',
+      key: 'MinNum',
     },
+
+    {
+      title: 'MaxNum',
+      dataIndex: 'MaxNum',
+      key: 'MaxNum',
+    },
+
+    {
+      title: 'SupportOps',
+      dataIndex: 'SupportOps',
+      key: 'SupportOps',
+    },
+
+    {
+      title: 'OpsWithScript',
+      dataIndex: 'OpsWithScript',
+      key: 'OpsWithScript',
+    },
+
+    {
+      title: 'AdmVisible',
+      dataIndex: 'AdmVisible',
+      key: 'AdmVisible',
+    },
+
+    {
+      title: 'EngName',
+      dataIndex: 'EngName',
+      key: 'EngName',
+    },
+
+    {
+      title: 'ChnName',
+      dataIndex: 'ChnName',
+      key: 'ChnName',
+    },
+
+
     {
       title: 'Operation',
       key: 'operation',
