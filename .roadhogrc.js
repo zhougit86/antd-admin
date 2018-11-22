@@ -16,6 +16,12 @@ export default {
     "changeOrigin": true,
     "pathRewrite": { "^/apinew" : "" }
   },
+    "/login": {
+      "target": "http://10.0.31.116:8088/login/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/login" : "" }
+    },
+
     // "/api/v2": {
     //   "target": "http://192.168.0.110",
     //   "changeOrigin": true,

@@ -62,6 +62,7 @@ const fetch = (options) => {
         data: cloneData,
       })
     case 'post':
+      console.log('post')
       return axios.post(url, cloneData)
     case 'put':
       return axios.put(url, cloneData)
@@ -75,6 +76,8 @@ const fetch = (options) => {
 export default function request (options) {
   if (options.url && options.url.indexOf('//') > -1) {
     const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
+    console.log(origin)
+    console.log(window.location.origin)
     if (window.location.origin !== origin) {
       if (CORS && CORS.indexOf(origin) > -1) {
         options.fetchType = 'CORS'
@@ -84,13 +87,14 @@ export default function request (options) {
         options.fetchType = 'JSONP'
       }
     }
+    console.log(options)
   }
 
   return fetch(options).then((response) => {
     const { statusText, status } = response
     let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data
-    if (data instanceof Array){
-      data = {data};
+    if (data instanceof Array) {
+      data = { data };
     }
     // console.log(data)
     return {

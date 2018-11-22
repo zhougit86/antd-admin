@@ -4,12 +4,15 @@
 let config;
 switch (env) {
   case "development":
+    console.log("defaultd");
     config = require("./config.local.js").config;
     break;
   case "prod":
+    console.log("defaultp");
     config = require("./config.prod.js").config;
     break;
   default:
+    console.log("default");
     config = require("./config.local.js").config;
 }
 

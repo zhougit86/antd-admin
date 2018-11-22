@@ -1,6 +1,7 @@
 const APIV1 = '/api/v1'
 const APIV2 = '/api/v2'
 const APINEW = '/apinew'
+const LOGIN = '/login'
 
 module.exports = {
   pageSize:4,
@@ -11,7 +12,7 @@ module.exports = {
   iconFontCSS: '/iconfont.css',
   iconFontJS: '/iconfont.js',
   YQL: ['http://www.zuimeitianqi.com'],
-  CORS: ['http://localhost:7000'],
+  CORS: ['http://10.0.31.116:8088'],
   openPages: ['/login'],
   apiPrefix: '/api/v1',
   api: {
@@ -25,6 +26,6 @@ module.exports = {
     v1test: `${APIV1}/test`,
     v2test: `${APIV2}/test`,
     newUser: `${APINEW}/newUser`,
-    Obj: `${APINEW}/config`,
+    Obj: `${LOGIN}`,
   },
 }

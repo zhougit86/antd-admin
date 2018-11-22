@@ -22,3 +22,14 @@ export async function create (params) {
     data: params,
   })
 }
+
+export async function auth (params) {
+  console.log(Obj)
+  return request(
+    {
+      url: 'http://10.0.31.116:8088' + Obj,
+      method: 'post',
+      data: params,
+    }
+  )
+}

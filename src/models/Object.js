@@ -1,12 +1,12 @@
 import modelExtend from 'dva-model-extend'
-import {query,create} from '../services/Object'
-import {pageFrontModel} from './commonFrontPage'
+import { auth, create } from '../services/Object'
+import { pageFrontModel } from './commonFrontPage'
 
 export default modelExtend(pageFrontModel, {
 
   namespace: 'Object',
 
-  reducers:{
+  reducers: {
     showModal (state, { payload }) {
       return { ...state, ...payload, modalVisible: true }
     },
@@ -17,11 +17,11 @@ export default modelExtend(pageFrontModel, {
   },
 
   subscriptions: {
-    setup ({dispatch, history}) {
+    setup ({ dispatch, history }) {
       history.listen(location => {
         if (location.pathname === '/Object') {
           dispatch({
-            type: 'query', payload: {}
+            type: 'auth', payload: {username: 'admin', password: 'admin' },
           })
         }
       })
@@ -29,23 +29,23 @@ export default modelExtend(pageFrontModel, {
   },
 
   effects: {
-    *query ({payload,}, {call, put}) {
+    *auth ({ payload, }, { call, put }) {
       // throw new Error('haha')
-      const data = yield call(query, payload)
-      if (data.success) {
-        yield put({
-          type: 'querySuccess',
-          payload: {
-            list: data.data,
-            pagination: {
-              current: 1,
-              total: Number(data.data.length) ,
-            },
-          },
-        })
-      } else {
-        throw data
-      }
+      const data = yield call(auth, payload)
+      // if (data.success) {
+      //   yield put({
+      //     type: 'querySuccess',
+      //     payload: {
+      //       list: data.data,
+      //       pagination: {
+      //         current: 1,
+      //         total: Number(data.data.length) ,
+      //       },
+      //     },
+      //   })
+      // } else {
+      //   throw data
+      // }
     },
 
     *create ({ payload }, { call, put }) {
