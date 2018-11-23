@@ -47,65 +47,65 @@ const List = ({...tableProps, dispatch, sortedInfo, selectedRowKeys}) => {
     //   sorter: (a, b) => a.id - b.id,
     //   sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
     // },
+    // {
+    //   title: 'ServiceName',
+    //   dataIndex: 'ServiceName',
+    //   key: 'ServiceName',
+    //   // render: text => <a href="">{text}</a>,
+    // },
+    // {
+    //   title: 'ObjectName',
+    //   dataIndex: 'ObjectName',
+    //   key: 'ObjectName',
+    //   render: text => <a href="">{text}</a>,
+    // },
     {
-      title: 'ServiceName',
-      dataIndex: 'ServiceName',
-      key: 'ServiceName',
-      // render: text => <a href="">{text}</a>,
-    },
-    {
-      title: 'ObjectName',
-      dataIndex: 'ObjectName',
-      key: 'ObjectName',
-      render: text => <a href="">{text}</a>,
-    },
-    {
-      title: 'ObjectType',
-      dataIndex: 'ObjectType',
-      key: 'ObjectType',
-    },
-
-    {
-      title: 'MinNum',
-      dataIndex: 'MinNum',
-      key: 'MinNum',
+      title: 'name',
+      dataIndex: 'name',
+      key: 'name',
     },
 
     {
-      title: 'MaxNum',
-      dataIndex: 'MaxNum',
-      key: 'MaxNum',
+      title: 'type',
+      dataIndex: 'longType',
+      key: 'type',
     },
 
-    {
-      title: 'SupportOps',
-      dataIndex: 'SupportOps',
-      key: 'SupportOps',
-    },
-
-    {
-      title: 'OpsWithScript',
-      dataIndex: 'OpsWithScript',
-      key: 'OpsWithScript',
-    },
-
-    {
-      title: 'AdmVisible',
-      dataIndex: 'AdmVisible',
-      key: 'AdmVisible',
-    },
-
-    {
-      title: 'EngName',
-      dataIndex: 'EngName',
-      key: 'EngName',
-    },
-
-    {
-      title: 'ChnName',
-      dataIndex: 'ChnName',
-      key: 'ChnName',
-    },
+    // {
+    //   title: 'MaxNum',
+    //   dataIndex: 'MaxNum',
+    //   key: 'MaxNum',
+    // },
+    //
+    // {
+    //   title: 'SupportOps',
+    //   dataIndex: 'SupportOps',
+    //   key: 'SupportOps',
+    // },
+    //
+    // {
+    //   title: 'OpsWithScript',
+    //   dataIndex: 'OpsWithScript',
+    //   key: 'OpsWithScript',
+    // },
+    //
+    // {
+    //   title: 'AdmVisible',
+    //   dataIndex: 'AdmVisible',
+    //   key: 'AdmVisible',
+    // },
+    //
+    // {
+    //   title: 'EngName',
+    //   dataIndex: 'EngName',
+    //   key: 'EngName',
+    // },
+    //
+    // {
+    //   title: 'ChnName',
+    //   dataIndex: 'ChnName',
+    //   key: 'ChnName',
+    // },
 
 
     {

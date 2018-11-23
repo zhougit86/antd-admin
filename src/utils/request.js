@@ -7,13 +7,15 @@ import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
 
 const fetch = (options) => {
+  let superSetDomain = 'http://10.0.31.116:8088'
   let {
     method = 'get',
     data,
     fetchType,
     url,
   } = options
-
+  url = superSetDomain + url
+  console.log(url)
   const cloneData = lodash.cloneDeep(data)
 
   try {
@@ -54,9 +56,14 @@ const fetch = (options) => {
 
   switch (method.toLowerCase()) {
     case 'get':
-      return axios.get(url, {
-        params: cloneData,
-      })
+      // return axios.get(url, {
+      //   params: cloneData,
+      // })
+      return axios(
+        {url: url,
+          method: 'get',
+          withCredentials: true}
+        )
     case 'delete':
       return axios.delete(url, {
         data: cloneData,
@@ -68,6 +75,31 @@ const fetch = (options) => {
       return axios.put(url, cloneData)
     case 'patch':
       return axios.patch(url, cloneData)
+    case 'auth':
+      return axios({
+        url: url,
+        method: 'post',
+        withCredentials: true,
+        data: {
+          username: 'admin',
+          password: 'admin',
+        },
+
+        transformRequest: [function (data) {
+          // Do whatever you want to transform the data
+          let ret = ''
+          for (let it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+          }
+          return ret
+        }],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }
+      })
+      // headers: {
+      //   'Content-Type': 'application/x-www-form-urlencoded',
+      // }
     default:
       return axios(options)
   }
@@ -76,8 +108,6 @@ const fetch = (options) => {
 export default function request (options) {
   if (options.url && options.url.indexOf('//') > -1) {
     const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
-    console.log(origin)
-    console.log(window.location.origin)
     if (window.location.origin !== origin) {
       if (CORS && CORS.indexOf(origin) > -1) {
         options.fetchType = 'CORS'
@@ -87,7 +117,6 @@ export default function request (options) {
         options.fetchType = 'JSONP'
       }
     }
-    console.log(options)
   }
 
   return fetch(options).then((response) => {

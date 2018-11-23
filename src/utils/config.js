@@ -1,7 +1,7 @@
 const APIV1 = '/api/v1'
 const APIV2 = '/api/v2'
 const APINEW = '/apinew'
-const LOGIN = '/login'
+const SUPER = ''
 
 module.exports = {
   pageSize:4,
@@ -26,6 +26,8 @@ module.exports = {
     v1test: `${APIV1}/test`,
     v2test: `${APIV2}/test`,
     newUser: `${APINEW}/newUser`,
-    Obj: `${LOGIN}`,
+    Obj: `${APINEW}/config`,
+    superLogin: `${SUPER}/login/`,
+    superAttr: `${SUPER}/superset/table/4/SUPP_VENDOR_ARR_RATIO_DAY/DW/`,
   },
 }

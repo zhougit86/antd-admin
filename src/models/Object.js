@@ -1,5 +1,5 @@
 import modelExtend from 'dva-model-extend'
-import { auth, create } from '../services/Object'
+import { query, auth, create } from '../services/Object'
 import { pageFrontModel } from './commonFrontPage'
 
 export default modelExtend(pageFrontModel, {
@@ -29,23 +29,26 @@ export default modelExtend(pageFrontModel, {
   },
 
   effects: {
-    *auth ({ payload, }, { call, put }) {
+    *auth ({ payload }, { call, put }) {
       // throw new Error('haha')
-      const data = yield call(auth, payload)
-      // if (data.success) {
-      //   yield put({
-      //     type: 'querySuccess',
-      //     payload: {
-      //       list: data.data,
-      //       pagination: {
-      //         current: 1,
-      //         total: Number(data.data.length) ,
-      //       },
-      //     },
-      //   })
-      // } else {
-      //   throw data
-      // }
+      yield call(auth, payload)
+
+      const data = yield call(query, payload)
+      if (data.success) {
+        console.log(data)
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            list: data.columns,
+            pagination: {
+              current: 1,
+              total: Number(data.columns.length) ,
+            },
+          },
+        })
+      } else {
+        throw data
+      }
     },
 
     *create ({ payload }, { call, put }) {
